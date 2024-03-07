@@ -107,31 +107,21 @@ input:focus {
     flex-direction: column;
     justify-content: center;
     flex-shrink: 0;
-    color:#FD006B;
+    color:black;
     font-family: Inria Sans;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
     text-align: center;
     padding-top: 30px;
+}
+.pihak{
+    color:#FD006B;
+}
+.lg{
+    color: #FD006B;
 }
 
-.lupasandi:hover{
-    text-decoration: none;
-    text-align: center;
-    width: 184px;
-    height: 20px;
-    flex-direction: column;
-    justify-content: center;
-    flex-shrink: 0;
-    color:#C91515;
-    font-family: Inria Sans;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    text-align: center;
-    padding-top: 30px;
-}
 
 @media screen and (max-width: 600px){
 

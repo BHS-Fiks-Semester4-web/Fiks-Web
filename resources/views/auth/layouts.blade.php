@@ -13,7 +13,11 @@
 
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container">
-          <a class="navbar-brand" href="{{ URL('/') }}">Akhwat Computer</a>
+            <nav><img src="{{ asset('assets/img/logo2.png') }}" alt="Example" class="logosize"></nav>
+            <a href="login">Dashboard</a>
+            <a href="login">Login
+
+            </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>

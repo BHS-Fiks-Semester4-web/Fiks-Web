@@ -25,9 +25,9 @@ class LoginRegisterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function register()
+    public function daftar()
     {
-        return view('auth.register');
+        return view('auth.daftar');
     }
 
     /**
@@ -60,7 +60,7 @@ class LoginRegisterController extends Controller
         Auth::attempt($credentials);
         $request->session()->regenerate();
         return redirect()->route('dashboard')
-        ->withSuccess('You have successfully registered & logged in!');
+        ->withSuccess('Anda Berhasil Login');
     }
 
     /**

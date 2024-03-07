@@ -1,12 +1,12 @@
 
-@extends('auth.copyright')
-<link href="{{ asset('assets/css/login2.css') }}" rel="stylesheet">
+
+<link href="{{ asset('assets/css/register.css') }}" rel="stylesheet">
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akhwat Computer| Sign In</title>
+    <title>Akhwat Computer| Register</title>
     
     <style>
 
@@ -55,7 +55,7 @@
         </div>
 
         <div class="login-form-container">
-            <form action="{{ route('authenticate') }}" method="post" class="login-form"  onsubmit="return showPopup()">
+            <form action="{{ route('store') }}" method="post" class="login-form"  >
                @csrf
                 <input type="text"  class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="Masukkan Email">
                     @if ($errors->has('email'))
@@ -65,16 +65,16 @@
                     <input type="password" name="password" id="password" placeholder="Masukan Kata Sandi">
                 </div>
                     <div class="btn">
-                        <button class="login" type="submit" name="signin">Masuk</button>
+                        <button class="login" type="submit" name="daftar">Daftar</button>
                     </div>
                     <div class="lupa">
-                        <a class="lupasandi" href="forgot_password.php">Lupa kata sandi?</a>
+                        <a class="lupasandi">Dengan mendaftar, Anda setuju dengan Syarat, Ketentuan & Kebijakan privasi dari <span class="pihak">Pihak Kami</span></a>
                     </div>
                     <div class="garis">
                         <a class="garis"></a>
                     </div>
-                    <div class="register">
-                       <h4 class="reg">Belom Punya Akun ? <a class="register" href="daftar">Daftar Sekarang !</a></h4> 
+                    <div class="daftar">
+                       <h4 class="reg">Punya Akun ? <a class ="lg" href="login">Log In !</a></h4> 
                     </div>
                
             </form>
@@ -86,7 +86,7 @@
         <p>Login Gagal. Periksa NISP/NIP Dan Password Anda.</p>
         <button onclick="hidePopup()">Tutup</button>
     </div>
-
+    @extends('auth.copyright')
     <script>
    <?php
 if (isset($_SESSION['loginError'])) {
