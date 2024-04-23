@@ -10,6 +10,7 @@
 
 @include('navbar')
 
+
 <div class="content" id="home">
     <h1>Iki Halaman Home</h1>
     {{-- <a href="#" class="btn">Contact Us</a> --}}
