@@ -1,38 +1,5 @@
 <?php
 
-// namespace App\Http\Controllers;
-
-// use Illuminate\Http\Request;
-// use App\Models\User;
-// use Illuminate\Support\Facades\Hash;
-
-
-// class AuthController extends Controller
-// {
-//     public function loginMobile(Request $request){
-//         $credentials = $request->only('email', 'password');
-
-//         if (auth()->attempt($credentials)) {
-//             $user = auth()->user();
-//             return response()->json([
-//                 'status' => 'success',
-//                 'username' => $user->username,
-//                 'name' => $user->name,
-//                 'email' => $user->email,
-//                 'alamat' => $user->alamat,
-//                 'agama' => $user->agama,
-//                 'tanggal_lahir' => $user->tanggal_lahir,
-//                 'message' => 'Login berhasil'
-//             ]);
-//         } else {
-//             return response()->json([
-//                 'status' => 'error',
-//                 'message' => 'Kredensial tidak valid'
-//             ], 401);
-//         }
-//     }
-//} 
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -83,36 +50,6 @@ class AuthController extends Controller
             ], 500);
         }
     }
-
-    // public function registerMobile(Request $request)
-    // {
-    //     $validatedData = $request->validate([
-    //         'namaLengkap' => 'required|string',
-    //         'username' => 'required|string|unique:user',
-    //         'tanggalLahir' => 'required|date',
-    //         'selectedRegion' => 'required|string',
-    //         'alamat' => 'required|string',
-    //         'noHP' => 'required|string',
-    //         'email' => 'required|email|unique:user',
-    //         'password' => 'required|string|min:8|confirmed',
-    //     ]);
-
-    //     $user = User::create([
-    //         'name' => $validatedData['namaLengkap'],
-    //         'username' => $validatedData['username'],
-    //         'tanggal_lahir' => $validatedData['tanggalLahir'],
-    //         'agama' => $validatedData['selectedRegion'],
-    //         'alamat' => $validatedData['alamat'],
-    //         'no_hp' => $validatedData['noHP'],
-    //         'email' => $validatedData['email'],
-    //         'password' => Hash::make($validatedData['password']),
-    //     ]);
-
-    //     return response()->json([
-    //         'success' => true,
-    //         'message' => 'Data berhasil dimasukkan',
-    //     ]);
-    // }
 
     public function registerMobile(Request $request)
     {

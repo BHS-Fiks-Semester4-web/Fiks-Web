@@ -90,15 +90,80 @@ body {
     max-height: 50px;
 }
 
-.row{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 /* Home */
 
 #home{
+    background: linear-gradient(to right, #89003A, #FF4F99);
+    text-align: center;
+    padding: 90px 20px;
+}
+
+.row_home{
+    display: flex;
+    flex-direction: row; /* Mengatur arah fleks ke horizontal */
+    justify-content: space-between; /* Menempatkan konten ke kanan dan kiri */
+    align-items: stretch; /* Menyamakan tinggi konten di dalam baris */
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 40px;
+    height: 500px;
+}
+
+.home_content_left{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1.2;
+}
+
+.home_content_right{
+    flex: 1.8; /* Menggunakan flex-grow untuk proporsi 2 */
+    display: flex;
+    align-items: center; /* Meletakkan konten secara vertikal di tengah */
+    justify-content: center;
+}
+
+.home_content_right img {
+    max-width: 75%; /* Mengatur lebar maksimum gambar agar tidak melebihi lebar konten */
+    max-height: 75%; /* Mengatur tinggi maksimum gambar agar tidak terlalu besar */
+    height: auto; /* Mengatur ketinggian gambar agar mengikuti perubahan proporsi lebar */
+    margin-right: 60px;
+}
+
+.home_content_left h1{
+    color: #FFFCBF;
+    font-size: 60px;
+    text-align: left; /* Rata kiri untuk judul */
+    margin-bottom: 10px;
+    margin-top: 80px;
+}
+
+.home_content_left p{
+    color: #FFFCBF;
+    font-size: 30px;
+    text-align: left;
+    margin-top: 10px;
+}
+
+.btn_home {
+    background-color: #45001a;
+    color: #FFFCBF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+.btn_home:hover {
+    background-color: #7b1d41;
+}
+
+/* Discount */
+
+#discount{
     text-align: center;
     padding: 90px 20px;
     background-color: blue;
@@ -119,6 +184,12 @@ body {
     padding: 50px 20px;
     text-align: center;
     height: 380px;
+}
+
+.row_contact{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .contact_title {

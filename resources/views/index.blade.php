@@ -11,6 +11,7 @@
 @include('navbar')
 
 @include('home') <!-- Memuat konten halaman home -->
+@include('discount') <!-- Memuat konten halaman diskon -->
 @include('product') <!-- Memuat konten halaman produk -->
 @include('contact') <!-- Memuat konten halaman kontak -->
 

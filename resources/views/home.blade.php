@@ -12,8 +12,16 @@
 
 
 <div class="content" id="home">
-    <h1>Iki Halaman Home</h1>
-    {{-- <a href="#" class="btn">Contact Us</a> --}}
+    <div class="row_home">
+        <div class="home_content_left">
+            <h1>AKHWAT COMPUTER</h1>
+            <p>Jelajahi berbagai model laptop, komputer, printer, dan perangkat lainnya untuk menemukan yang terbaik untuk Anda.</p>
+            <a href="#" class="btn_home">Lihat semua produk</a>
+        </div>
+        <div class="home_content_right">
+            <img src="{{ asset('image/imageonhome.png') }}" alt="">
+        </div>
+    </div>
 </div>
 <div style="height: 1000px;"></div>
 </body>

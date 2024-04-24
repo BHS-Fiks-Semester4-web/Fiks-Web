@@ -11,7 +11,7 @@
 @include('navbar')
 
 <div class="content" id="contact">
-    <div class="row">
+    <div class="row_contact">
         <div class="contact_title">
             <h1>Kontak</h1>
         </div>
