@@ -17,24 +17,24 @@ class AuthController extends Controller
                 'email' => 'required|email',
                 'password' => 'required',
             ]);
-
+    
             // Coba melakukan autentikasi pengguna
             if (Auth::attempt($request->only('email', 'password'))) {
                 // Autentikasi berhasil
                 $user = Auth::user();
-
+    
                 return response()->json([
                     'status' => 'success',
+                    'id'=> $user->id,
                     'username' => $user->username,
                     'name' => $user->name,
                     'email' => $user->email,
                     'alamat' => $user->alamat,
                     'agama' => $user->agama,
                     'tanggal_lahir' => $user->tanggal_lahir,
-                    'message' => 'Login berhasil',
-                    'message' => 'Email atau password salah'
-
-                ],200);
+                    'no_hp' => $user->no_hp,
+                    'message' => 'Login berhasil' // Hanya satu key 'message' disini
+                ], 200);
             } else {
                 // Autentikasi gagal
                 return response()->json([
@@ -46,10 +46,11 @@ class AuthController extends Controller
             // Tangani kesalahan
             return response()->json([
                 'status' => 'error',
-                'message' => 'Terjadi kesalahan saat melakukan login'
+                'message' => 'Terjadi kesalahan saat melakukan login'. $e->getMessage()
             ], 500);
         }
     }
+    
 
     public function registerMobile(Request $request)
     {
@@ -92,6 +93,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Terjadi kesalahan saat melakukan registrasi',
+                'error' => $e->getMessage()
             ], 500);
         }
     }

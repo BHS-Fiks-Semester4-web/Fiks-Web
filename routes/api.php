@@ -20,5 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/login-mobile', [AuthController::class, 'loginMobile']);
+Route::get('/login-mobile', [AuthController::class, 'loginMobile']);
 Route::post('/register-mobile',[AuthController::class,'registerMobile']);
