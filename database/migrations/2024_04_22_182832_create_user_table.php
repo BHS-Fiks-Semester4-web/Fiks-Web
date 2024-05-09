@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('agama');
             $table->string('tanggal_lahir');
             $table->string('api_token');
-            
             $table->timestamps();
         });
     }

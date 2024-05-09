@@ -3,7 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +15,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // Test Manage Web
+        User::create([
+            'name'=>'Ilham Nugroho',
+            'email'=>'ilhamisdarmawan@gmail.com',
+            'password'=>Hash::make('ilham'),
+            'alamat'=>'Jember',
+            'username'=>'Ilham Gokil',
+            'no_hp'=>'085156915879',
+            'agama'=>'Islam',
+            'tanggal_lahir'=>'12/04/2024',
+            'role'=>'admin'
+        ]);
+        User::create([
+            'name'=>'Rizal Mahendra',
+            'email'=>'rizalmahendra@gmail.com',
+            'password'=>Hash::make('rizal'),
+            'alamat'=>'Jember',
+            'username'=>'Rizal Gokil',
+            'no_hp'=>'085156915879',
+            'agama'=>'Islam',
+            'tanggal_lahir'=>'12/04/2024',
+            'role'=>'karyawan'
+        ]);
     }
 }

@@ -12,7 +12,7 @@
 <nav class="navbar">
     <div class="container">
         <div class="logo">
-            <a href="#home"><img src="/image/logo.png" alt="Logo Akhwat Computer Jember"></a>
+            <a href="#home"><img src="/image/logo1x2.png" alt="Logo Akhwat Computer Jember"></a>
         </div>
         <ul class="menu">
             <li><a href="#home" style="font-weight: bold">Home</a></li>

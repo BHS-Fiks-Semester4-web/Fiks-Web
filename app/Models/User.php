@@ -17,8 +17,18 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $table = 'user';
+    // protected $table = 'user';
     protected $fillable = [
+        // 'id',
+        // 'name',
+        // 'email',
+        // 'password',
+        // 'alamat',
+        // 'username',
+        // 'no_hp',
+        // 'agama',
+        // 'tanggal_lahir',
+
         'id',
         'name',
         'email',
@@ -28,6 +38,8 @@ class User extends Authenticatable
         'no_hp',
         'agama',
         'tanggal_lahir',
+        'role',
+        'foto'
         
     ];
     public $timestamps = false;
