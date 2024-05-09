@@ -87,6 +87,7 @@ class AuthController extends Controller
                 'agama' => $request->agama,
                 'tanggal_lahir' => $request->tanggal_lahir,
                 'no_hp' => $request->no_hp,
+                'role' => 'Karyawan',
                 // Tambahkan bidang lainnya sesuai kebutuhan.
             ]);
 
@@ -129,7 +130,7 @@ class AuthController extends Controller
 
             // Mengembalikan data pengguna
             return response()->json([
-                'user' => $user->only(['username', 'email', 'alamat', 'agama', 'tanggal_lahir', 'no_hp']),
+                'user' => $user->only(['username', 'email', 'alamat', 'agama', 'tanggal_lahir', 'no_hp','role']),
             ], 200);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Terjadi kesalahan saat mengambil data pengguna'], 500);

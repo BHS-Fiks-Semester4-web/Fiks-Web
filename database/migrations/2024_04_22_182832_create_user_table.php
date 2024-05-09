@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('username');
             $table->string('no_hp');
             $table->string('agama');
+            $table->string('role');
             $table->string('tanggal_lahir');
             $table->string('api_token');
             $table->timestamps();
