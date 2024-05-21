@@ -28,7 +28,7 @@
                     <button type="submit" class="btn btn-custom w-100">Login</button>
                 </div>
                 <div class="text-center mt-3">
-                    <a href="#" style="text-decoration: none">Forgot Password?</a>
+                    <a href="forgot_password" style="text-decoration: none">Forgot Password?</a>
                 </div>
             </form>
             </div>

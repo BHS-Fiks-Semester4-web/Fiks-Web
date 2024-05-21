@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
+use App\Http\Controllers\barangController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,4 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/login-mobile', [AuthController::class, 'loginMobile']);
 Route::post('/register-mobile',[AuthController::class,'registerMobile']);
+
 Route::middleware('auth:api')->get('/get-user', [AuthController::class, 'getUserByToken']);
