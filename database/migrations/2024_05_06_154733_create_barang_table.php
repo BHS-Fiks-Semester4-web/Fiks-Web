@@ -14,16 +14,20 @@ return new class extends Migration
         Schema::create('barang', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_jenis_barang');
+            $table->unsignedBigInteger('id_supplier')->nullable();
             $table->string('nama_barang');
             $table->integer('stok_barang');
             $table->integer('harga_beli_barang');
             $table->integer('harga_sebelum_diskon_barang');
+            $table->integer('diskon_barang')->nullable();
             $table->integer('harga_setelah_diskon_barang');
-            $table->date('exp_diskon_barang');
-            $table->string('garansi_barang');
+            $table->date('exp_diskon_barang')->nullable();
+            $table->string('garansi_barang')->nullable();
             $table->string('deskripsi_barang');
-            $table->string('foto_barang');
+            $table->binary('foto_barang')->nullable();
+            $table->enum('status', ['aktif','tidak'])->default('aktif');
             $table->foreign('id_jenis_barang')->references('id')->on('jenis_barang');
+            $table->foreign('id_supplier')->references('id')->on('supplier');
             $table->timestamps();
         });
     }

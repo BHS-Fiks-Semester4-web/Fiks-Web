@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('no_hp');
             $table->string('agama');
             $table->string('tanggal_lahir');
-            $table->string('api_token');
-            $table->enum('role',['admin', 'karyawan']);
+            $table->enum('role',['admin', 'karyawan'])->default('karyawan');
+            $table->enum('status', ['aktif', 'tidak'])->default('aktif');
             $table->binary('foto')->nullable();
             $table->timestamps();
         });

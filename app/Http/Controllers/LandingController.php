@@ -30,14 +30,18 @@ class LandingController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             
-            if ($user->role === 'admin') {
-                $request->session()->regenerate();
-        
-                return redirect()->intended('/dashboard');
+            if ($user->status === 'aktif') {
+                if ($user->role === 'admin') {
+                    $request->session()->regenerate();
+            
+                    return redirect()->intended('/dashboard');
+                } else {
+                    Auth::logout();
+                    return back()->with('error', 'Anda tidak memiliki akses.');
+                }
             } else {
-                Auth::logout();
-                return back()->with('error', 'Anda tidak memiliki akses.');
-            }
+                return back()->with('error', 'Akun Anda tidak aktif.');
+            }            
         }
         return back()->withErrors(['email' => 'Kombinasi email dan password tidak valid.']);
     }    

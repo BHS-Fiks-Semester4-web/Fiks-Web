@@ -21,16 +21,6 @@ class User extends Authenticatable
      */
     protected $table = 'users';
     protected $fillable = [
-        // 'id',
-        // 'name',
-        // 'email',
-        // 'password',
-        // 'alamat',
-        // 'username',
-        // 'no_hp',
-        // 'agama',
-        // 'tanggal_lahir',
-
         'id',
         'name',
         'email',
@@ -44,6 +34,18 @@ class User extends Authenticatable
         'foto'
         
     ];
+
+    public static function getUser($search = null)
+    {
+        $query = User::where('status', 'aktif')->latest();
+    
+        if ($search) {
+            $query->where('name', 'LIKE', "%$search%");
+        }
+    
+        return $query->paginate(4)->withQueryString();
+    }
+
     public $timestamps = false;
 
 

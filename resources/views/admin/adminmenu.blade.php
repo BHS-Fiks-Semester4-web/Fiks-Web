@@ -11,7 +11,11 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="data:image/jpeg;base64,{{ base64_encode(Auth::user()->foto) }}" alt="" style="width: 40px; height: 40px;">
+                        @if (Auth::user()->foto)
+                            <img class="rounded-circle" src="data:image/jpeg;base64,{{ base64_encode(Auth::user()->foto) }}" alt="" style="width: 40px; height: 40px;">
+                        @else
+                            <img class="rounded-circle" src="/admins/img/profile.png" style="width: 40px; height: 40px;">
+                        @endif
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
@@ -20,11 +24,11 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="/dashboard" class="nav-item nav-link {{ Request::is('dashboard') ? 'active' : '' }}"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a href="/databarang" class="nav-item nav-link {{ Request::is('databarang*') ? 'active' : '' }}"><i class="fa fa-keyboard me-2"></i>Data Barang</a>
-                    <a href="/datakaryawan" class="nav-item nav-link {{ Request::is('datakaryawan*') ? 'active' : '' }}"><i class="fa fa-laptop me-2"></i>Data Karyawan</a>
-                    <a href="/datakategori" class="nav-item nav-link {{ Request::is('datakategori*') ? 'active' : '' }}"><i class="fa fa-laptop me-2"></i>Data Kategori</a>
-                    <a href="/datapemasok" class="nav-item nav-link {{ Request::is('datapemasok*') ? 'active' : '' }}"><i class="fa fa-laptop me-2"></i>Data Pemasok</a>
+                    <a href="/dashboard" class="nav-item nav-link {{ Request::is('dashboard') ? 'active' : '' }}"><i class="fa fa-dashboard me-2"></i>Dashboard</a>
+                    <a href="/data_barang" class="nav-item nav-link {{ Request::is('data_barang*') ? 'active' : '' }}"><i class="fa fa-box-archive me-2"></i>Data Barang</a>
+                    <a href="/data_pengguna" class="nav-item nav-link {{ Request::is('data_pengguna*') ? 'active' : '' }}"><i class="fa fa-users me-2"></i>Data Pengguna</a>
+                    <a href="/data_pemasok" class="nav-item nav-link {{ Request::is('data_pemasok*') ? 'active' : '' }}"><i class="fa fa-truck-field me-2"></i>Data Pemasok</a>
+                    <a href="/data_jenis_barang" class="nav-item nav-link {{ Request::is('data_jenis_barang*') ? 'active' : '' }}"><i class="fa fa-clipboard-list me-2"></i>Jenis Barang</a>
                 </div>
             </nav>
         </div>
@@ -53,7 +57,7 @@
             <!-- Navbar End -->
 
             @yield('admincontent')
-            
+            @include('admin.adminfooter')
         </div>
     </div>
 @endsection

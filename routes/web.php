@@ -3,11 +3,10 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LandingInfoController;
 use App\Http\Controllers\DataBarangController;
-use App\Http\Controllers\DataKaryawanController;
-use App\Http\Controllers\DataKategoriController;
+use App\Http\Controllers\DataPenggunaController;
 use App\Http\Controllers\DataPemasokController;
-use App\Http\Controllers\barangController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\DataJenisBarangController;
 use App\Http\Controllers\LandingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\risetpw;
@@ -35,12 +34,6 @@ Route::controller(LandingController::class)->group(function () {
     Route::get('/dashboard', 'dashboard')->middleware('auth');
 });
 
-Route::get('/databarang', [DataBarangController::class, 'index'])->middleware('auth');
-Route::get('/datakaryawan', [DataKaryawanController::class, 'index'])->middleware('auth');
-Route::get('/datakategori', [DataKategoriController::class, 'index'])->middleware('auth');
-Route::get('/datapemasok', [DataPemasokController::class, 'index'])->middleware('auth');
-
-
 Route::get('/forgot-password', [LandingController::class, 'showForgotPasswordForm'])->name('password.request');
 Route::post('/forgot-password', [LandingController::class, 'sendResetLinkEmail'])->name('password.email');
 Route::get('/verify-otp', [LandingController::class, 'showVerifyOTPForm'])->name('password.verify');
@@ -51,4 +44,25 @@ Route::get('/profile', [ProfilController::class, 'show'])->name('profile.show');
 Route::get('/profile/edit', [ProfilController::class, 'edit'])->name('profile.edit');
 Route::post('/profile/edit', [ProfilController::class, 'update'])->name('profile.update');
 
+
+Route::resource('data_barang', DataBarangController::class)->middleware('auth');
+Route::controller(DataBarangController::class)->group(function () {
+    Route::get('/data_barang_truncate', 'truncate')->middleware('auth');
+});
+
+Route::resource('data_pengguna', DataPenggunaController::class)->middleware('auth');
+Route::controller(DataPenggunaController::class)->group(function () {
+    Route::get('/data_pengguna_truncate', 'truncate')->middleware('auth');
+    Route::get('/data_pengguna/{id}/toggleRole', 'toggleRole')->name('data_pengguna.toggleRole');
+});
+
+Route::resource('data_pemasok', DataPemasokController::class)->middleware('auth');
+Route::controller(DataPemasokController::class)->group(function () {
+    Route::get('/data_pemasok_truncate', 'truncate')->middleware('auth');
+});
+
+Route::resource('data_jenis_barang', DataJenisBarangController::class)->middleware('auth');
+Route::controller(DataJenisBarangController::class)->group(function () {
+    Route::get('/data_jenis_barang_truncate', 'truncate')->middleware('auth');
+});
 

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama_supplier');
             $table->string('alamat_supplier');
             $table->string('no_hp_supplier');
+            $table->enum('status', ['aktif','tidak'])->default('aktif');
             $table->timestamps();
         });
     }

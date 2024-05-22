@@ -6,6 +6,8 @@
   <title>Form Login</title>
   <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+
+  <link rel="shortcut icon" href="{{ asset('image/logo.webp') }}" type="image/x-icon">
 </head>
 <body>
     <div class="container mt-5">

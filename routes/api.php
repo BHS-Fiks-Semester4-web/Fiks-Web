@@ -4,8 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
-use App\Http\Controllers\barangController;
-
+use App\Http\Controllers\Mobile\DataBarang;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +26,5 @@ Route::post('/register-mobile',[AuthController::class,'registerMobile']);
 Route::put('/users/{id}', [AuthController::class, 'update']);
 
 Route::middleware('auth:api')->get('/get-user', [AuthController::class, 'getUserByToken']);
+
+Route::resource('data_barang', DataBarang::class);

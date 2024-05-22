@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('jenis_barang', function (Blueprint $table) {
             $table->id();
             $table->string('nama_jenis_barang');
+            $table->binary('foto')->nullable();
+            $table->enum('status', ['aktif', 'tidak'])->default('aktif');
             $table->timestamps();
         });
     }
