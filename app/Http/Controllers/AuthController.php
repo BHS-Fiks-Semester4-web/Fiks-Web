@@ -24,9 +24,9 @@ class AuthController extends Controller
             $user = Auth::user();
 
             // Generate and save API token
-            $token = $user->createToken('token-name')->plainTextToken;
-            $user->api_token = $token;
-            $user->save();
+            // $token = $user->createToken('token-name')->plainTextToken;
+            // $user->api_token = $token;
+            // $user->save();
 
             return response()->json([
                 'status' => 'success',
@@ -39,7 +39,7 @@ class AuthController extends Controller
                     'agama' => $user->agama,
                     'tanggal_lahir' => $user->tanggal_lahir,
                     'no_hp' => $user->no_hp,
-                    'token' => $token,
+                    // 'token' => $token,
                 ],
                 'message' => 'Login berhasil'
             ], 200);
@@ -58,85 +58,128 @@ class AuthController extends Controller
         ], 500);
     }
 }
-    
 
-    public function registerMobile(Request $request)
-    {
-        try {
-            // Validasi permintaan
-            $request->validate([
-                'username' => 'required',
-                'email' => 'required|email',
-                'password' => 'required',
-                'alamat' => 'required',
-                'tanggal_lahir' => 'required',
-                'agama' => 'required',
-                'name' => 'required',
-                'no_hp' => 'required',
-                
-                // Tambahkan validasi untuk bidang lainnya seperti alamat, agama, tanggal_lahir, dll. sesuai kebutuhan.
-            ]);
 
-            // Buat pengguna baru
-            $user = User::create([
-                'username' => $request->username,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'name' => $request->name,
-                'alamat' => $request->alamat,
-                'agama' => $request->agama,
-                'tanggal_lahir' => $request->tanggal_lahir,
-                'no_hp' => $request->no_hp,
-                'role' => 'Karyawan',
-                // Tambahkan bidang lainnya sesuai kebutuhan.
-            ]);
+public function registerMobile(Request $request)
+{
+    try {
+        // Validasi permintaan
+        $request->validate([
+            'username' => 'required',
+            'email' => 'required|email|unique:user,email', // Tambahkan aturan validasi unique untuk memastikan email unik
+            'password' => 'required',
+            'alamat' => 'required',
+            'tanggal_lahir' => 'required',
+            'agama' => 'required',
+            'name' => 'required',
+            'no_hp' => 'required',
+            // Tambahkan validasi untuk bidang lainnya seperti alamat, agama, tanggal_lahir, dll. sesuai kebutuhan.
+        ]);
 
-            // Beri respons dengan sukses
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Registrasi berhasil',
-                'user' => $user,
-            ], 201);
-        } catch (\Exception $e) {
-            // Tangani kesalahan
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Terjadi kesalahan saat melakukan registrasi',
-                'error' => $e->getMessage()
-            ], 500);
-        }
+        // Buat pengguna baru
+        $user = user::create([
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'name' => $request->name,
+            'alamat' => $request->alamat,
+            'agama' => $request->agama,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'no_hp' => $request->no_hp,
+            // Tambahkan bidang lainnya sesuai kebutuhan.
+        ]);
+
+        // Beri respons dengan sukses
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Registrasi berhasil',
+            'user' => $user,
+        ], 201);
+    } catch (\Exception $e) {
+        // Tangani kesalahan
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Terjadi kesalahan saat melakukan registrasi',
+            'error' => $e->getMessage()
+        ], 500);
     }
+}
+
+public function update(Request $request, $id)
+{
+    try {
+        // Validasi permintaan
+        $request->validate([
+            'username' => 'required',
+            'email' => 'required|email',
+            'alamat' => 'required',
+            'tanggal_lahir' => 'required',
+            'agama' => 'required',
+            'name' => 'required',
+            'no_hp' => 'required',
+            // Tambahkan validasi untuk bidang lainnya seperti alamat, agama, tanggal_lahir, dll. sesuai kebutuhan.
+        ]);
+
+        // Cari pengguna berdasarkan ID
+        $user = User::findOrFail($id);
+
+        // Perbarui informasi pengguna
+        $user->update([
+            'username' => $request->username,
+            'email' => $request->email,
+            'name' => $request->name,
+            'alamat' => $request->alamat,
+            'agama' => $request->agama,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'no_hp' => $request->no_hp,
+            // Tambahkan bidang lainnya sesuai kebutuhan.
+        ]);
+
+        // Beri respons dengan sukses
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Profil pengguna berhasil diperbarui',
+            'user' => $user,
+        ], 200);
+    } catch (\Exception $e) {
+        // Tangani kesalahan
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Terjadi kesalahan saat memperbarui profil pengguna',
+            'error' => $e->getMessage()
+        ], 500);
+    }
+}
 
 
     // Fungsi untuk mendapatkan data pengguna berdasarkan token
-    public function getUserByToken(Request $request)
-    {
-        try {
-            // Mendapatkan token dari header Authorization
-            $token = $request->bearerToken(); 
-            if (!$token) {
-                return response()->json(['message' => 'Token tidak valid'], 401);
-            }
+    // public function getUserByToken(Request $request)
+    // {
+    //     try {
+    //         // Mendapatkan token dari header Authorization
+    //         $token = $request->bearerToken();
+    //         if (!$token) {
+    //             return response()->json(['message' => 'Token tidak valid'], 401);
+    //         }
 
-            // Mengambil data pengguna berdasarkan token
-            $user = Auth::user(
-                'username',
-            );
+    //         // Mengambil data pengguna berdasarkan token
+    //         $user = Auth::user(
+    //             'username',
+    //         );
 
-            // Periksa apakah pengguna ditemukan
-            if (!$user) {
-                return response()->json(['message' => 'Pengguna tidak ditemukan'], 404);
-            }
+    //         // Periksa apakah pengguna ditemukan
+    //         if (!$user) {
+    //             return response()->json(['message' => 'Pengguna tidak ditemukan'], 404);
+    //         }
 
-            // Mengembalikan data pengguna
-            return response()->json([
-                'user' => $user->only(['username', 'email', 'alamat', 'agama', 'tanggal_lahir', 'no_hp','role']),
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'Terjadi kesalahan saat mengambil data pengguna'], 500);
-        }
-    }
+    //         // Mengembalikan data pengguna
+    //         return response()->json([
+    //             'user' => $user->only(['username', 'email', 'alamat', 'agama', 'tanggal_lahir', 'no_hp']),
+    //         ], 200);
+    //     } catch (\Exception $e) {
+    //         return response()->json(['message' => 'Terjadi kesalahan saat mengambil data pengguna'], 500);
+    //     }
+    // }
 
 
 }
-
