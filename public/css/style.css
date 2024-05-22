@@ -12,7 +12,7 @@ body {
 /* Navbar */
 
 .navbar {
-    background: linear-gradient(to right, #8F003C, #FF78B1);
+    background: linear-gradient(to right, #1f000d, #d61968);
     padding: 20px 0;
     position: fixed;
     top: 0;
@@ -93,7 +93,7 @@ body {
 /* Home */
 
 #home{
-    background: linear-gradient(to right, #89003A, #FF4F99);
+    background: linear-gradient(to right, #1f000d, #FF4F99);
     text-align: center;
     padding: 90px 20px;
 }
@@ -149,6 +149,7 @@ body {
     background-color: #45001a;
     color: #FFFCBF;
     padding: 10px 20px;
+    margin-top: 70px;
     border: none;
     border-radius: 5px;
     text-align: center;
@@ -174,7 +175,7 @@ body {
 #product{
     text-align: center;
     padding: 90px 20px;
-    background-color: blue;
+    background-color: rgb(227, 227, 240);
 }
 
 /* Contact */

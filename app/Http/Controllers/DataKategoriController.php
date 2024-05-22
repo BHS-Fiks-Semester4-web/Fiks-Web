@@ -11,9 +11,7 @@ class DataKategoriController extends Controller
      */
     public function index()
     {
-        return view('data_Kategori.index', [
-            'title'=>'Data Kategori'
-        ]);
+       
     }
 
     /**

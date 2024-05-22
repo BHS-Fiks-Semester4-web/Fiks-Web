@@ -1,0 +1,35 @@
+main {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.intro h1 {
+    margin-bottom: 30px;
+}
+
+.products {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.product-card {
+    background-color: #34495e;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+}
+
+.product-card .icon {
+    font-size: 50px;
+    margin-bottom: 10px;
+}

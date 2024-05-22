@@ -7,6 +7,7 @@ use App\Http\Controllers\DataKaryawanController;
 use App\Http\Controllers\DataKategoriController;
 use App\Http\Controllers\DataPemasokController;
 use App\Http\Controllers\barangController;
+use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\LandingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\risetpw;
@@ -46,4 +47,8 @@ Route::get('/verify-otp', [LandingController::class, 'showVerifyOTPForm'])->name
 Route::post('/verify-otp', [LandingController::class, 'verifyOTP'])->name('password.verify');
 Route::get('/reset-password/{token}', [risetpw::class,'showResetForm'])->name('password.reset');
 Route::post('/reset-password', [risetpw::class, 'reset'])->name('password.update');
+Route::get('/profile', [ProfilController::class, 'show'])->name('profile.show');
+Route::get('/profile/edit', [ProfilController::class, 'edit'])->name('profile.edit');
+Route::post('/profile/edit', [ProfilController::class, 'update'])->name('profile.update');
+
 
