@@ -8,12 +8,13 @@ use App\Models\Mobile\Barang;
 
 class DataBarang extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $barangs = Barang::all()->toArray();
+        $barangs = Barang::all();
+
+        foreach ($barangs as $barang) {
+            $barang->foto_barang = base64_encode($barang->foto_barang); // Konversi BLOB ke base64
+        }
 
         $response = [
             'status' => 'success',
@@ -24,25 +25,6 @@ class DataBarang extends Controller
         return response()->json($response, 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $barang = Barang::find($id);
@@ -50,31 +32,30 @@ class DataBarang extends Controller
         if (!$barang) {
             return response()->json(['status' => 'error', 'message' => 'Barang tidak ditemukan'], 404);
         }
-    
+
+        $barang->foto_barang = base64_encode($barang->foto_barang); // Konversi BLOB ke base64
+
         return response()->json(['status' => 'success', 'message' => 'Data barang berhasil dimuat', 'barang' => $barang], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function getBarangByIdJenis(Request $request, $id_jenis_barang)
     {
-        //
-    }
+        $barangs = Barang::where('id_jenis_barang', $id_jenis_barang)->get();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        if ($barangs->isEmpty()) {
+            return response()->json(['status' => 'error', 'message' => 'Tidak ada barang yang sesuai dengan id jenis barang tersebut'], 404);
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        foreach ($barangs as $barang) {
+            $barang->foto_barang = base64_encode($barang->foto_barang); // Konversi BLOB ke base64
+        }
+
+        $response = [
+            'status' => 'success',
+            'message' => 'Data barang berhasil dimuat berdasarkan id jenis barang',
+            'barangs' => $barangs
+        ];
+
+        return response()->json($response, 200);
     }
 }
