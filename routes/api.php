@@ -3,8 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LandingController;
 
 use App\Http\Controllers\Mobile\DataBarang;
+use App\Http\Controllers\Mobile\LupaPw;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +30,7 @@ Route::put('/users/{id}', [AuthController::class, 'update']);
 Route::middleware('auth:api')->get('/get-user', [AuthController::class, 'getUserByToken']);
 
 Route::resource('data_barang', DataBarang::class);
+
+
+
+Route::post('/forgot-password', [LupaPw::class, 'sendResetLinkEmail']);
