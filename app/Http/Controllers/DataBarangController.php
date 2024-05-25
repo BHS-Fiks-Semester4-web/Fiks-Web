@@ -46,7 +46,7 @@ class DataBarangController extends Controller
             'harga_beli_barang' => 'required|integer',
             'harga_sebelum_diskon_barang' => 'required|integer',
             'diskon_barang' => 'nullable|integer',
-            'harga_setelah_diskon_barang' => 'required|integer',
+            'harga_setelah_diskon_barang' => 'nullable|integer',
             'exp_diskon_barang' => 'nullable|date',
             'garansi_barang' => 'nullable|string|max:255',
             'deskripsi_barang' => 'required|string',
@@ -69,8 +69,11 @@ class DataBarangController extends Controller
      */
     public function show(string $id)
     {
-    
-        
+        $barang = Barang::with(['jenisBarang', 'supplier'])->findOrFail($id);
+        return view('data_barang.data_barang_detail', [
+            'title'         => 'Detail',
+            'data_barang'   => $barang,
+        ]);
     }
 
     /**
@@ -78,7 +81,12 @@ class DataBarangController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('data_barang.data_barang_edit', [
+            'title' => 'Edit Data',
+            'data_barang'=> Barang::findOrFail($id),
+            'suppliers' => Pemasok::where('status', 'aktif')->get(),
+            'jenisBarangs' => JenisBarang::where('status', 'aktif')->get()
+        ]);
     }
 
     /**
@@ -86,7 +94,44 @@ class DataBarangController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'id_supplier'                   => 'nullable|exists:supplier,id',
+            'id_jenis_barang'               => 'required|exists:jenis_barang,id',
+            'nama_barang'                   => 'required|max:255',
+            'stok_barang'                   => 'required|integer',
+            'harga_beli_barang'             => 'required|integer',
+            'harga_sebelum_diskon_barang'   => 'required|integer',
+            'diskon_barang'                 => 'nullable|integer',
+            'harga_setelah_diskon_barang'   => 'nullable|integer',
+            'exp_diskon_barang'             => 'nullable|date',
+            'garansi_barang'                => 'nullable|string|max:255',
+            'deskripsi_barang'              => 'required|string',
+            'foto_barang'                   => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $data_barang = Barang::findOrFail($id);
+
+        $data_barang->id_supplier                   = $request->id_supplier;
+        $data_barang->id_jenis_barang               = $request->id_jenis_barang;
+        $data_barang->nama_barang                   = $request->nama_barang;
+        $data_barang->stok_barang                   = $request->stok_barang;
+        $data_barang->harga_beli_barang             = $request->harga_beli_barang;
+        $data_barang->harga_sebelum_diskon_barang   = $request->harga_sebelum_diskon_barang;
+        $data_barang->diskon_barang                 = $request->diskon_barang;
+        $data_barang->harga_setelah_diskon_barang   = $request->harga_setelah_diskon_barang;
+        $data_barang->exp_diskon_barang             = $request->exp_diskon_barang;
+        $data_barang->garansi_barang                = $request->garansi_barang;
+        $data_barang->deskripsi_barang              = $request->deskripsi_barang;
+
+        if ($request->hasFile('foto_barang')) {
+            $foto = $request->file('foto_barang');
+            $fotoBlob = file_get_contents($foto->getRealPath());
+            $data_barang->foto = $fotoBlob;
+        }
+
+        $data_barang->save();
+
+        return redirect('data_barang/'.$id)->with('update', 'Data barang berhasil diupdate.');
     }
 
     /**
@@ -118,5 +163,52 @@ class DataBarangController extends Controller
         return view('data_barang.data_barang_create_jenis_barang', [
             'title' => 'Membuat Data Jenis Barang'
         ]);
+    }
+
+    public function storePemasok(Request $request)
+    {
+        $validated = $request->validate([
+            'nama_supplier' => 'required|max:255',
+            'alamat_supplier' => 'required|max:255',
+            'no_hp_supplier' => 'required|max:255',
+        ]);
+
+        $cek = Pemasok::where('nama_supplier', $validated['nama_supplier'])->get();
+        if ($cek->isNotEmpty()) {
+            return back()->with('message', 'Data sudah ada');
+        } else {
+            $pemasok = Pemasok::create($validated);
+            return response()->json([
+                'success' => true, 
+                'id' => $pemasok->id, 
+                'nama_supplier' => $pemasok->nama_supplier
+            ]);
+        }
+    }
+
+    public function storeJenisBarang(Request $request)
+    {
+        $validated = $request->validate([
+            'nama_jenis_barang' => 'required|max:255',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif',
+        ]);
+
+        $foto = $request->file('foto');
+        $fotoBlob = file_get_contents($foto->getRealPath());
+
+        $cek = JenisBarang::where('nama_jenis_barang', $validated['nama_jenis_barang'])->get();
+        if ($cek->isNotEmpty()) {
+            return back()->with('message', 'Data sudah ada');
+        } else {
+            $jenisBarang = JenisBarang::create([
+                'nama_jenis_barang' => $validated['nama_jenis_barang'],
+                'foto' => $fotoBlob,
+            ]);
+            return response()->json([
+                'success' => true, 
+                'id' => $jenisBarang->id, 
+                'nama_jenis_barang' => $jenisBarang->nama_jenis_barang
+            ]);
+        }
     }
 }

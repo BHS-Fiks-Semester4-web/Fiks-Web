@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('harga_beli_barang');
             $table->integer('harga_sebelum_diskon_barang');
             $table->integer('diskon_barang')->nullable();
-            $table->integer('harga_setelah_diskon_barang');
+            $table->integer('harga_setelah_diskon_barang')->nullable();
             $table->date('exp_diskon_barang')->nullable();
             $table->string('garansi_barang')->nullable();
             $table->string('deskripsi_barang');

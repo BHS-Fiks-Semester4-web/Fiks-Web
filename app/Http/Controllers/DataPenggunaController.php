@@ -16,8 +16,8 @@ class DataPenggunaController extends Controller
         $search = $request->input('search');
         
         return view('data_pengguna.index', [
-            'title' => 'Data Pengguna',
-            'data_penggunas' => User::getUser($search)
+            'title'             => 'Data Pengguna',
+            'data_penggunas'    => User::getUser($search)
         ]);
     }
 
@@ -27,7 +27,7 @@ class DataPenggunaController extends Controller
     public function create()
     {
         return view('data_pengguna.data_pengguna_create', [
-            'title'=>'Membuat Data Pengguna'
+            'title'     =>'Membuat Data Pengguna'
         ]);
     }
 
@@ -37,16 +37,16 @@ class DataPenggunaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:255',
-            'alamat' => 'required|max:255',
-            'agama' => 'required|max:255',
-            'tanggal_lahir' => 'required|max:255',
-            'no_hp' => 'required|max:255',
-            'email' => 'required|email|max:255',
-            'username' => 'required|unique:users|max:255',
-            'password' => 'required|max:255',
-            'role' => 'required|max:255',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'name'          => 'required|max:255',
+            'alamat'        => 'required|max:255',
+            'agama'         => 'max:255',
+            'tanggal_lahir' => 'date|max:255',
+            'no_hp'         => 'required|max:255',
+            'email'         => 'required|email|max:255',
+            'username'      => 'required|unique:users|max:255',
+            'password'      => 'required|max:255',
+            'role'          => 'required|max:255',
+            'foto'          => 'image|mimes:jpeg,png,jpg,gif',
         ]);
 
         $foto = $request->file('foto');
@@ -55,16 +55,16 @@ class DataPenggunaController extends Controller
         $fotoBlob = file_get_contents($foto->getRealPath());
         // Proses penyimpanan data
         $user = new User();
-        $user->name = $request->name;
-        $user->alamat = $request->alamat;
-        $user->agama = $request->agama;
-        $user->tanggal_lahir = $request->tanggal_lahir;
-        $user->no_hp = $request->no_hp;
-        $user->email = $request->email;
-        $user->username = $request->username;
-        $user->password = Hash::make($request->password);
-        $user->role = $request->role;
-        $user->foto = $fotoBlob;
+        $user->name             = $request->name;
+        $user->alamat           = $request->alamat;
+        $user->agama            = $request->agama;
+        $user->tanggal_lahir    = $request->tanggal_lahir;
+        $user->no_hp            = $request->no_hp;
+        $user->email            = $request->email;
+        $user->username         = $request->username;
+        $user->password         = Hash::make($request->password);
+        $user->role             = $request->role;
+        $user->foto             = $fotoBlob;
         
         $user->save();
 
@@ -79,7 +79,7 @@ class DataPenggunaController extends Controller
     {
         $pengguna = User::findOrFail($id);
         return view('data_pengguna.data_pengguna_detail', [
-            'title' => 'Detail',
+            'title'         => 'Detail',
             'data_pengguna' => $pengguna,
         ]);
     }
@@ -100,27 +100,27 @@ class DataPenggunaController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name' => 'required|max:255',
-            'alamat' => 'required|max:255',
-            'agama' => 'required|max:255',
-            'tanggal_lahir' => 'required|date',
-            'no_hp' => 'required|max:255',
-            'email' => 'required|email|max:255',
-            'username' => 'required|max:255|unique:users,username,' . $id,
-            'password' => 'sometimes|max:255',
-            'role' => 'required|max:255',
-            'foto' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'name'          => 'required|max:255',
+            'alamat'        => 'required|max:255',
+            'agama'         => 'max:255',
+            'tanggal_lahir' => 'date|max:255',
+            'no_hp'         => 'required|max:255',
+            'email'         => 'required|email|max:255',
+            'username'      => 'required|max:255|unique:users,username,' . $id,
+            'password'      => 'sometimes|max:255',
+            'role'          => 'required|max:255',
+            'foto'          => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $user = User::findOrFail($id);
-        $user->name = $request->name;
-        $user->alamat = $request->alamat;
-        $user->agama = $request->agama;
-        $user->tanggal_lahir = $request->tanggal_lahir;
-        $user->no_hp = $request->no_hp;
-        $user->email = $request->email;
-        $user->username = $request->username;
-        $user->role = $request->role;
+        $user->name             = $request->name;
+        $user->alamat           = $request->alamat;
+        $user->agama            = $request->agama;
+        $user->tanggal_lahir    = $request->tanggal_lahir;
+        $user->no_hp            = $request->no_hp;
+        $user->email            = $request->email;
+        $user->username         = $request->username;
+        $user->role             = $request->role;
 
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
