@@ -9,6 +9,7 @@ body {
     font-family: sans-serif;
 }
 
+
 /* Navbar */
 
 .navbar {
@@ -96,6 +97,7 @@ body {
     background: linear-gradient(to right, #1f000d, #FF4F99);
     text-align: center;
     padding: 90px 20px;
+    margin: 0;
 }
 
 .row_home{
@@ -164,18 +166,14 @@ body {
 
 /* Discount */
 
-#discount{
-    text-align: center;
-    padding: 90px 20px;
-    background-color: blue;
-}
-
 /* Produk */
 
 #product{
     text-align: center;
     padding: 90px 20px;
     background-color: rgb(227, 227, 240);
+    margin: 0;
+    
 }
 
 /* Contact */
@@ -185,6 +183,7 @@ body {
     padding: 50px 20px;
     text-align: center;
     height: 380px;
+    margin: 0;
 }
 
 .row_contact{

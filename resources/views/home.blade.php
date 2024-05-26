@@ -5,35 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <style>
-        .home_content_right{
-            margin-left: 250px; 
+        .home_content_right {
+            margin-left: 250px;
         }
-        .home_content_left{
-            margin-left: 80px; 
+        .home_content_left {
+            margin-left: 80px;
         }
         .slider {
             position: relative;
             max-width: 100%;
             margin: auto;
             overflow: hidden;
-          
             display: flex;
             align-items: center;
         }
         .slides {
             display: flex;
             transition: transform 0.5s ease-in-out;
-            width: 300%;
+            width: 300%; /* Assuming there are 3 slides */
         }
-        .slides img {
-            width: auto;
-            height: 100%;
-            display: none; /* Initially hide all images */
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .slide img {
+            width: 100%;
+            height: auto;
         }
         .dots {
             text-align: center;
             padding: 10px;
+            margin-top: 0px;
         }
         .dot {
             cursor: pointer;
@@ -71,19 +78,18 @@
         <div class="home_content_right">
             <div class="slider">
                 <div class="slides">
-                    <img src="{{ asset('image/foto1.png') }}" alt="Image 1">
-                    <img src="{{ asset('image/foto4.png') }}" alt="Image 2">
-                    <img src="{{ asset('image/service.png') }}" alt="Image 3">
+                    <div class="slide"><img src="{{ asset('image/foto1.png') }}" alt="Image 1"></div>
+                    <div class="slide"><img src="{{ asset('image/foto4.png') }}" alt="Image 2"></div>
+                    <div class="slide"><img src="{{ asset('image/service.png') }}" alt="Image 3"></div>
                 </div>
             </div>
             <div class="dots-container">
-            <div class="dots">
-                <span class="dot" onclick="currentSlide(1)"></span>
-                <span class="dot" onclick="currentSlide(2)"></span>
-                <span class="dot" onclick="currentSlide(3)"></span>
+                <div class="dots">
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                </div>
             </div>
-            </div>
-           
         </div>
     </div>
 </div>
@@ -91,29 +97,39 @@
 
 <script>
     let slideIndex = 0;
-    showSlides();
+    let slides = document.querySelector('.slides');
+    let dots = document.querySelectorAll('.dot');
+    let totalSlides = dots.length;
 
     function showSlides() {
-        let slides = document.querySelectorAll('.slides img');
-        let dots = document.querySelectorAll('.dot');
-        for (let i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none"; // Hide all images initially
-        }
-        slideIndex++;
-        if (slideIndex > slides.length) {
-            slideIndex = 1;
-        }
         for (let i = 0; i < dots.length; i++) {
             dots[i].className = dots[i].className.replace(" active", "");
         }
-        slides[slideIndex - 1].style.display = "block"; // Show the current image
+        slideIndex++;
+        if (slideIndex > totalSlides) {
+            slideIndex = 1;
+        }
+        let offset = (slideIndex - 1) * -100;
+        slides.style.transform = 'translateX(' + offset + '%)';
         dots[slideIndex - 1].className += " active";
         setTimeout(showSlides, 3000); // Change image every 3 seconds
     }
 
     function currentSlide(n) {
-        showSlides(slideIndex = n);
+        slideIndex = n;
+        let offset = (n - 1) * -100;
+        slides.style.transform = 'translateX(' + offset + '%)';
+        for (let i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        dots[n - 1].className += " active";
     }
+
+    showSlides();
+</script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init();
 </script>
 
 </body>
