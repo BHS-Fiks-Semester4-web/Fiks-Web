@@ -41,6 +41,7 @@
                             <th scope="col">Harga</th>
                             <th scope="col">Stok</th>
                             <th scope="col">Garansi</th>
+                            <th scope="col">Foto</th>
                             <th scope="col">Aksi</th>
                         </tr>
                     </thead>
@@ -48,16 +49,34 @@
                         @foreach ($barangs as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
-                                <td>{{ $item->harga_setelah_diskon_barang }}</td>
+                                <td>{{ $item->nama_barang }}</td>
+                                @if ($item->harga_setelah_diskon_barang)
+                                    <td>{{ $item->harga_setelah_diskon_barang }}</td>
+                                @else
+                                    <td>{{ $item->harga_sebelum_diskon_barang }}</td>
+                                @endif
                                 <td>{{ $item->stok_barang }}</td>
-                                <td>{{ $item->garansi_barang }}</td>
+                                @if ($item->garansi_barang)
+                                    <td>{{ $item->garansi_barang }}</td>
+                                @else
+                                    <td>Tidak ada</td>
+                                @endif
+                                @if ($item->foto_barang)
+                                    <td>
+                                        <img class="bd-placeholder-img" src="data:image/jpeg;base64,{{ base64_encode($item->foto_barang) }}" width="40" height="40">
+                                    </td>
+                                @else
+                                    <td>Tidak ada</td>
+                                @endif
                                 <td>
-                                    <a href="/data_barang/{{ $item->id }}" class="btn btn-info border-0 mx-2 my-1" type="button">Detail</a>
-                                    <a href="/data_barang/{{ $item->id }}/edit" class="btn btn-info border-0 mx-2 my-1" type="button">Edit</a>
+                                    <a href="/data_barang/{{ $item->id }}" type="button" style="margin-right: 10px; color: #454444;"><i class="fas fa-info-circle me-2"></i></a>
+                                    <a href="/data_barang/{{ $item->id }}/edit" type="button" style="margin-right: 10px; color: #454444;"><i class="fas fa-pencil-alt me-2"></i></a>
                                     <form action="/data_barang/{{ $item->id }}" method="post" class="d-inline">
                                         @method('delete')
                                         @csrf
-                                        <button class="btn btn-danger border-0 mx-2 my-1" onclick="return confirm('Apakah kamu yakin ?')">Hapus</button>
+                                        <button onclick="return confirm('Apakah kamu yakin ?')" style="background: none; border: none; padding: 0; color: #454444; cursor: pointer;">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
                                     </form>
                                 </td>
                             </tr>
