@@ -56,12 +56,12 @@ class LandingController extends Controller
         return redirect('/');
     }
 
-    public function dashboard()
-    {
-        return view('dashboard', [
-            'title' => 'Dashboard',
-        ]);
-    }
+    // public function dashboard()
+    // {
+    //     return view('dashboard', [
+    //         'title' => 'Dashboard',
+    //     ]);
+    // }
     public function ForgotPw()
     {
         return view('forgot_password', [

@@ -131,6 +131,10 @@ class DataPenggunaController extends Controller
             $fotoBlob = file_get_contents($foto->getRealPath());
             $user->foto = $fotoBlob;
         }
+        
+        if ($request->has('deleteFoto')) {
+            $user->foto = null;
+        }
 
         $user->save();
 

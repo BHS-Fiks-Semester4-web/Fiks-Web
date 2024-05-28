@@ -1,4 +1,10 @@
 /********** Template CSS **********/
+
+.carousel-control-prev-icon svg,
+.carousel-control-next-icon svg{
+    fill: blue;
+}
+
 :root {
     --primary: #009CFF;
     --light: #F3F6F9;

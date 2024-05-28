@@ -8,8 +8,10 @@ use App\Http\Controllers\DataPemasokController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\DataJenisBarangController;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\risetpw;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +33,7 @@ Route::controller(LandingController::class)->group(function () {
     Route::post('/signin', 'authenticate');
     Route::get('/forgot_password', 'ForgotPw');
     Route::post('/signout', 'signout')->middleware('auth');
-    Route::get('/dashboard', 'dashboard')->middleware('auth');
+    // Route::get('/dashboard', 'dashboard')->middleware('auth');
 });
 
 Route::get('/forgot-password', [LandingController::class, 'showForgotPasswordForm'])->name('password.request');
@@ -44,6 +46,7 @@ Route::get('/profile', [ProfilController::class, 'show'])->name('profile.show');
 Route::get('/profile/edit', [ProfilController::class, 'edit'])->name('profile.edit');
 Route::post('/profile/edit', [ProfilController::class, 'update'])->name('profile.update');
 
+Route::resource('dashboard', DashboardController::class)->middleware('auth');
 
 Route::resource('data_barang', DataBarangController::class)->middleware('auth');
 Route::controller(DataBarangController::class)->group(function () {

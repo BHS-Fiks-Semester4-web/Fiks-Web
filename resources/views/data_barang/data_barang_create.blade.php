@@ -17,13 +17,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-        <div class="col-sm-12 col-xl-12">
+        <div class="col-12">
             <div class="bg-light rounded h-100 p-4">
                 <h6 class="mb-4">Membuat Data Barang</h6>
                 <form id="barangForm" method="POST" action="/data_barang" enctype="multipart/form-data">
                     @csrf
                     <div class="row my-2">
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="id_supplier" class="form-label">Supplier</label>
                             <div class="d-flex align-items-center">
                                 <select class="form-select me-2" aria-label="Default select example" id="id_supplier" name="id_supplier">
@@ -31,13 +31,10 @@
                                         <option value="{{ $item->id }}">{{ $item->nama_supplier }}</option>
                                     @endforeach
                                 </select>
-                                {{-- <a href="/data_barang/createSupplier" style="color: #454444;">
-                                    <i class="fas fa-plus"></i>
-                                </a> --}}
                             </div>
                             <div class="invalid-feedback" id="supplierError"></div>
                         </div>                        
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="id_jenis_barang" class="form-label">Jenis Barang</label>
                             <div class="d-flex align-items-center">
                                 <select class="form-select me-2" aria-label="Default select example" id="id_jenis_barang" name="id_jenis_barang" required>
@@ -45,67 +42,64 @@
                                         <option value="{{ $item->id }}">{{ $item->nama_jenis_barang }}</option>
                                     @endforeach
                                 </select>
-                                {{-- <a href="/data_barang/createJenisBarang" style="color: #454444;">
-                                    <i class="fas fa-plus"></i>
-                                </a> --}}
                             </div>
                             <div class="invalid-feedback" id="jenisBarangError"></div>
                         </div>
                     </div>
                     <div class="row my-2">
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="nama_barang" class="form-label">Nama Barang</label>
                             <input type="text" class="form-control" id="nama_barang" name="nama_barang" autocomplete="off" oninput="capitalize(this)" required>
                             <div class="invalid-feedback" id="namaBarangError"></div>
                         </div>
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="stok_barang" class="form-label">Stok Barang</label>
                             <input type="text" class="form-control" id="stok_barang" name="stok_barang" autocomplete="off" required>
                             <div class="invalid-feedback" id="stokBarangError"></div>
                         </div>
                     </div>
                     <div class="row my-2">
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="harga_beli_barang" class="form-label">Harga Beli Barang</label>
                             <input type="text" class="form-control" id="harga_beli_barang" name="harga_beli_barang" autocomplete="off" required>
                             <div class="invalid-feedback" id="hargaBeliError"></div>
                         </div>
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="harga_sebelum_diskon_barang" class="form-label">Harga Jual</label>
                             <input type="text" class="form-control" id="harga_sebelum_diskon_barang" name="harga_sebelum_diskon_barang" autocomplete="off" required>
                             <div class="invalid-feedback" id="hargaSebelumDiskonError"></div>
                         </div>
                     </div>
                     <div class="row my-2">
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="diskon_barang" class="form-label">Diskon</label>
                             <input type="text" class="form-control" id="diskon_barang" name="diskon_barang" autocomplete="off">
                             <div class="invalid-feedback" id="diskonError"></div>
                         </div>
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="harga_setelah_diskon_barang" class="form-label">Harga Jual Setelah Diskon</label>
                             <input type="text" class="form-control" id="harga_setelah_diskon_barang" name="harga_setelah_diskon_barang" autocomplete="off" readonly>
                             <div class="invalid-feedback" id="hargaSetelahDiskonError"></div>
                         </div>
                     </div>
                     <div class="row my-2">
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="exp_diskon_barang" class="form-label">Expired Diskon</label>
                             <input type="date" class="form-control" id="exp_diskon_barang" name="exp_diskon_barang" autocomplete="off" disabled>
                             <div class="invalid-feedback" id="expDiskonError"></div>
                         </div>
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="garansi_barang" class="form-label">Garansi Barang</label>
                             <input type="text" class="form-control" id="garansi_barang" name="garansi_barang" autocomplete="off">
                             <div class="invalid-feedback" id="garansiBarangError"></div>
                         </div>
                     </div>
                     <div class="row my-2">
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="deskripsi_barang" class="form-label">Deskripsi Barang</label>
                             <textarea name="deskripsi_barang" id="deskripsi_barang" cols="50" rows="10" class="form-control"></textarea>
                         </div>
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="foto_barang" class="form-label">Foto Barang</label>
                             <input type="file" class="form-control" id="foto_barang" name="foto_barang" autocomplete="off">
                             <div class="invalid-feedback" id="fotoBarangError"></div>

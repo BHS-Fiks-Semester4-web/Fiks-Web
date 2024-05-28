@@ -24,7 +24,7 @@
                     @csrf
                     @method('PUT')
                     <div class="row my-2">
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="id_supplier" class="form-label">Supplier</label>
                             <div class="d-flex align-items-center">
                                 <select class="form-select me-2" aria-label="Default select example" id="id_supplier" name="id_supplier">
@@ -35,7 +35,7 @@
                             </div>
                             <div class="invalid-feedback" id="supplierError"></div>
                         </div>                        
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="id_jenis_barang" class="form-label">Jenis Barang</label>
                             <div class="d-flex align-items-center">
                                 <select class="form-select me-2" aria-label="Default select example" id="id_jenis_barang" name="id_jenis_barang" required>
@@ -48,36 +48,36 @@
                         </div>
                     </div>
                     <div class="row my-2">
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="nama_barang" class="form-label">Nama Barang</label>
                             <input type="text" class="form-control" id="nama_barang" name="nama_barang" value="{{ $data_barang->nama_barang }}" autocomplete="off" oninput="capitalize(this)" required>
                             <div class="invalid-feedback" id="namaBarangError"></div>
                         </div>
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="stok_barang" class="form-label">Stok Barang</label>
                             <input type="text" class="form-control" id="stok_barang" name="stok_barang" value="{{ $data_barang->stok_barang }}" autocomplete="off" required>
                             <div class="invalid-feedback" id="stokBarangError"></div>
                         </div>
                     </div>
                     <div class="row my-2">
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="harga_beli_barang" class="form-label">Harga Beli Barang</label>
                             <input type="text" class="form-control" id="harga_beli_barang" name="harga_beli_barang" value="{{ $data_barang->harga_beli_barang }}" autocomplete="off" required>
                             <div class="invalid-feedback" id="hargaBeliError"></div>
                         </div>
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="harga_sebelum_diskon_barang" class="form-label">Harga Jual</label>
                             <input type="text" class="form-control" id="harga_sebelum_diskon_barang" name="harga_sebelum_diskon_barang" value="{{ $data_barang->harga_sebelum_diskon_barang }}" autocomplete="off" required>
                             <div class="invalid-feedback" id="hargaSebelumDiskonError"></div>
                         </div>
                     </div>
                     <div class="row my-2">
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="diskon_barang" class="form-label">Diskon</label>
                             <input type="text" class="form-control" id="diskon_barang" name="diskon_barang" value="{{ $data_barang->diskon_barang }}" autocomplete="off">
                             <div class="invalid-feedback" id="diskonError"></div>
                         </div>
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="harga_setelah_diskon_barang" class="form-label">Harga Jual Setelah Diskon</label>
                             <input type="text" class="form-control" id="harga_setelah_diskon_barang" name="harga_setelah_diskon_barang" value="{{ $data_barang->harga_setelah_diskon_barang }}" autocomplete="off" readonly>
                             <div class="invalid-feedback" id="hargaSetelahDiskonError"></div>
@@ -87,30 +87,30 @@
                         @php
                             $exp = \Carbon\Carbon::parse($data_barang->exp_diskon_barang)->format('Y-m-d');
                         @endphp
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="exp_diskon_barang" class="form-label">Expired Diskon</label>
                             <input type="date" class="form-control" id="exp_diskon_barang" name="exp_diskon_barang" value="{{ $exp }}" autocomplete="off" {{ $data_barang->diskon_barang ? '' : 'disabled' }}>
                             <div class="invalid-feedback" id="expDiskonError"></div>
                         </div>
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="garansi_barang" class="form-label">Garansi Barang</label>
                             <input type="text" class="form-control" id="garansi_barang" name="garansi_barang" value="{{ $data_barang->garansi_barang }}" autocomplete="off">
                             <div class="invalid-feedback" id="garansiBarangError"></div>
                         </div>
                     </div>
                     <div class="row my-2">
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="deskripsi_barang" class="form-label">Deskripsi Barang</label>
                             <textarea name="deskripsi_barang" id="deskripsi_barang" cols="50" rows="10" class="form-control">{{ $data_barang->deskripsi_barang }}</textarea>
                         </div>
                     </div>
                     <div class="row my-2">
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="foto_barang" class="form-label">Foto Barang Saat Ini</label>
                         </div>
                     </div>
                     <div class="row my-2">
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             @if ($data_barang->foto_barang)
                                 <img class="rounded-circle" src="data:image/jpeg;base64,{{ base64_encode($data_barang->foto_barang) }}" width="100" height="100">
                             @else
@@ -119,7 +119,7 @@
                         </div>
                     </div>
                     <div class="row my-2">
-                        <div class="col-6 my-2">
+                        <div class="col-12 col-md-6 my-2">
                             <label for="foto_barang" class="form-label">Foto Barang Baru</label>
                             <input type="file" class="form-control" id="foto_barang" name="foto_barang" autocomplete="off">
                         </div>
