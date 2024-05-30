@@ -11,7 +11,7 @@
     {{-- Existing Cards --}}
     <div class="row mt-4">
         <div class="col-md-3">
-            <a href="{{ url('/data_barang') }}" class="text-white text-decoration-none">
+                <a href="{{ route('dashboard.indexDataBarang') }}" class="text-white text-decoration-none">
                 <div class="card bg-primary text-white mb-4">
                     <div class="card-body d-flex align-items-center justify-content-between">
                         <div>
@@ -24,7 +24,7 @@
             </a>
         </div>
         <div class="col-md-3">
-            <a href="{{ url('/data_pengguna') }}" class="text-white text-decoration-none">
+            <a href="{{ url('/dashboard/indexDataKaryawan') }}" class="text-white text-decoration-none">
                 <div class="card bg-success text-white mb-4">
                     <div class="card-body d-flex align-items-center justify-content-between">
                         <div>
@@ -37,7 +37,7 @@
             </a>
         </div>
         <div class="col-md-3">
-            <a href="{{ url('/data_pengguna') }}" class="text-white text-decoration-none">
+            <a href="{{ url('/dashboard/indexDataAdmin') }}" class="text-white text-decoration-none">
                 <div class="card bg-warning text-white mb-4">
                     <div class="card-body d-flex align-items-center justify-content-between">
                         <div>
@@ -50,7 +50,7 @@
             </a>
         </div>
         <div class="col-md-3">
-            <a href="{{ url('/data_pemasok') }}" class="text-white text-decoration-none">
+            <a href="{{ url('/dashboard/indexDataPemasok') }}" class="text-white text-decoration-none">
                 <div class="card bg-danger text-white mb-4">
                     <div class="card-body d-flex align-items-center justify-content-between">
                         <div>

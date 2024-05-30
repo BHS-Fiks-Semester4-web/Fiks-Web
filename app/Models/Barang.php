@@ -44,6 +44,17 @@ class Barang extends Model
             $query->where('nama_barang', 'LIKE', "%$search%");
         }
 
-        return $query->paginate(14)->withQueryString();
+        return $query->paginate(4)->withQueryString();
+    }
+
+    public static function getBarangForDashboard($search = null)
+    {
+        $query = Barang::where('status', 'aktif')->latest();
+
+        if ($search) {
+            $query->where('nama_barang', 'LIKE', "%$search%");
+        }
+
+        return $query->get();
     }
 }

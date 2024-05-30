@@ -28,6 +28,7 @@
                             <label for="id_supplier" class="form-label">Supplier</label>
                             <div class="d-flex align-items-center">
                                 <select class="form-select me-2" aria-label="Default select example" id="id_supplier" name="id_supplier">
+                                    <option value="null">Pilih pemasok</option>
                                     @foreach ($suppliers as $item)
                                         <option value="{{ $item->id }}" @if ($item->id == $data_barang->id_supplier) selected @endif>{{ $item->nama_supplier }}</option>
                                     @endforeach
@@ -94,7 +95,7 @@
                         </div>
                         <div class="col-12 col-md-6 my-2">
                             <label for="garansi_barang" class="form-label">Garansi Barang</label>
-                            <input type="text" class="form-control" id="garansi_barang" name="garansi_barang" value="{{ $data_barang->garansi_barang }}" autocomplete="off">
+                            <input type="text" class="form-control" id="garansi_barang" name="garansi_barang" value="{{ $data_barang->garansi_barang }}" oninput="capitalize(this)" autocomplete="off">
                             <div class="invalid-feedback" id="garansiBarangError"></div>
                         </div>
                     </div>
@@ -137,6 +138,9 @@
         const expDiskonInput = document.getElementById('exp_diskon_barang');
         const hargaJualInput = document.getElementById('harga_sebelum_diskon_barang');
         const hargaSetelahDiskonInput = document.getElementById('harga_setelah_diskon_barang');
+
+        const today = new Date().toISOString().split('T')[0];
+        expDiskonInput.setAttribute('min', today);
 
         function updateExpDiskonInput() {
             const diskonValue = parseFloat(diskonInput.value) || 0;

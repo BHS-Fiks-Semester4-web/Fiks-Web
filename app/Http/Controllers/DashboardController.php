@@ -32,6 +32,48 @@ class DashboardController extends Controller
         ]);
     }
 
+    public function indexDataBarang(Request $request)
+    {
+        $search = $request->input('search');
+        $barang = Barang::getBarangForDashboard($search);
+
+        return view('dashboard.detail_data_barang',[
+            'title' => 'Data Barang',
+            'data_barangs' => $barang
+        ]);
+    }
+
+    // public function indexDataKaryawan()
+    // {
+    //     $karyawan = User::where('status', 'aktif')->where('role', 'karyawan');
+
+    //     return view('dashboard.detail_data_karyawan',[
+    //         'title' => 'Data Karyawan',
+    //         'karyawans' => $karyawan
+    //     ]);
+    // }
+
+    // public function indexDataAdmin()
+    // {
+    //     $admin = User::where('status', 'aktif')->where('role', 'admin');
+
+    //     return view('dashboard.detail_data_admin',[
+    //         'title' => 'Data Admin',
+    //         'admins' => $admin
+    //     ]);
+    // }
+    
+    // public function indexDataPemasok()
+    // {
+    //     $supplier = Pemasok::where('status', 'aktif');
+
+    //     return view('dashboard.detail_data_supplier',[
+    //         'title' => 'Data Supplier',
+    //         'suppliers' => $supplier
+    //     ]);
+    // }
+
+
     /**
      * Show the form for creating a new resource.
      */

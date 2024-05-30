@@ -27,6 +27,7 @@
                             <label for="id_supplier" class="form-label">Supplier</label>
                             <div class="d-flex align-items-center">
                                 <select class="form-select me-2" aria-label="Default select example" id="id_supplier" name="id_supplier">
+                                    <option value="">Pilih supplier</option>
                                     @foreach ($suppliers as $item)
                                         <option value="{{ $item->id }}">{{ $item->nama_supplier }}</option>
                                     @endforeach
@@ -38,6 +39,7 @@
                             <label for="id_jenis_barang" class="form-label">Jenis Barang</label>
                             <div class="d-flex align-items-center">
                                 <select class="form-select me-2" aria-label="Default select example" id="id_jenis_barang" name="id_jenis_barang" required>
+                                    <option value="">Pilih jenis barang</option>
                                     @foreach ($jenisBarangs as $item)
                                         <option value="{{ $item->id }}">{{ $item->nama_jenis_barang }}</option>
                                     @endforeach
@@ -98,6 +100,7 @@
                         <div class="col-12 col-md-6 my-2">
                             <label for="deskripsi_barang" class="form-label">Deskripsi Barang</label>
                             <textarea name="deskripsi_barang" id="deskripsi_barang" cols="50" rows="10" class="form-control"></textarea>
+                            <div class="invalid-feedback" id="deskripsiError"></div>
                         </div>
                         <div class="col-12 col-md-6 my-2">
                             <label for="foto_barang" class="form-label">Foto Barang</label>
@@ -118,6 +121,9 @@
         const expDiskonInput = document.getElementById('exp_diskon_barang');
         const hargaJualInput = document.getElementById('harga_sebelum_diskon_barang');
         const hargaSetelahDiskonInput = document.getElementById('harga_setelah_diskon_barang');
+
+        const today = new Date().toISOString().split('T')[0];
+        expDiskonInput.setAttribute('min', today);
 
         diskonInput.addEventListener('input', function() {
             const diskonValue = parseFloat(diskonInput.value) || 0;
@@ -145,7 +151,8 @@
                 { id: 'harga_beli_barang', message: 'Harga beli barang wajib diisi' },
                 { id: 'harga_sebelum_diskon_barang', message: 'Harga jual wajib diisi' },
                 { id: 'garansi_barang', message: 'Garansi barang wajib diisi' },
-                { id: 'foto_barang', message: 'Foto barang wajib diisi' }
+                { id: 'foto_barang', message: 'Foto barang wajib diisi' },
+                { id: 'deskripsi_barang', message: 'Deskripsi barang wajib diisi' },
             ];
 
             if (diskonInput.value) {

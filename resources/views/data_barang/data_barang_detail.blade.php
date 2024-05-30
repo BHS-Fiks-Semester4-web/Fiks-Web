@@ -65,7 +65,11 @@
                     <div class="col-12 text-start">
                         <div class="my-2">
                             <label for="supplier_barang" class="form-label">Pemasok</label>
-                            <input type="text" class="form-control" id="supplier_barang" value="{{ $data_barang->supplier->nama_supplier }}" readonly>
+                            @if ($data_barang->supplier !== null)
+                                <input type="text" class="form-control" id="supplier_barang" value="{{ $data_barang->supplier->nama_supplier }}" readonly> 
+                            @else
+                                <input type="text" class="form-control" id="supplier_barang" value="Tidak ada supplier" readonly>
+                            @endif
                         </div>
                     </div>
                 </div>
