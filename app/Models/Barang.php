@@ -49,7 +49,7 @@ class Barang extends Model
 
     public static function getBarangForDashboard($search = null)
     {
-        $query = Barang::where('status', 'aktif')->latest();
+        $query = Barang::where('status', 'aktif')->orderBy('nama_barang', 'asc');
 
         if ($search) {
             $query->where('nama_barang', 'LIKE', "%$search%");

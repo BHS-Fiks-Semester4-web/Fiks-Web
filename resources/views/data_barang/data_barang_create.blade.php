@@ -124,12 +124,20 @@
 
         const today = new Date().toISOString().split('T')[0];
         expDiskonInput.setAttribute('min', today);
-
-        diskonInput.addEventListener('input', function() {
-            const diskonValue = parseFloat(diskonInput.value) || 0;
+        
+        const updateHargaSetelahDiskon = () => {
             const hargaJualValue = parseFloat(hargaJualInput.value) || 0;
+            const diskonValue = parseFloat(diskonInput.value) || 0;
             const hargaSetelahDiskon = hargaJualValue - diskonValue;
             hargaSetelahDiskonInput.value = hargaSetelahDiskon;
+        };
+
+        // Update harga setelah diskon saat harga jual diubah
+        hargaJualInput.addEventListener('input', updateHargaSetelahDiskon);
+
+        // Update harga setelah diskon saat diskon diubah
+        diskonInput.addEventListener('input', function() {
+            updateHargaSetelahDiskon();
 
             if (diskonInput.value) {
                 expDiskonInput.disabled = false;
@@ -140,6 +148,7 @@
             }
         });
 
+        // Form validation
         const form = document.getElementById('barangForm');
         form.addEventListener('submit', function(event) {
             let valid = true;
