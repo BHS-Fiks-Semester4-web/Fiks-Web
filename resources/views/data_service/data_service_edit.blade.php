@@ -6,7 +6,7 @@
         <div class="container-fluid pt-1 px-3">
             <div class="bg-light rounded-top p-4">
                 <div class="row">
-                    <a href="/data_jenis_barang" class="btn btn-warning mx-3 my-3 col-sm-3" type="button">Kembali</a>
+                    <a href="/data_service" class="btn btn-warning mx-3 my-3 col-sm-3" type="button">Kembali</a>
                 </div>
             </div>
         </div>
@@ -20,16 +20,16 @@
         <div class="col-sm-12 col-xl-12">
             <div class="bg-light rounded h-100 p-4">
                 <h6 class="mb-4">Mengedit Data Jenis Barang</h6>
-                <form method="POST" action="/data_jenis_barang/{{ $jenis_data_barang->id }}" enctype="multipart/form-data">
+                <form method="POST" action="/data_service/{{ $service->id }}" enctype="multipart/form-data">
                     @csrf
                     @method('put')
                     <div class="mb-3">
-                        <label for="data_jenis_barang" class="form-label">Nama Jenis Barang</label>
-                        <input type="text" class="form-control" id="data_jenis_barang" name="nama_jenis_barang" value="{{ $jenis_data_barang->nama_jenis_barang }}" autocomplete="off" required>
+                        <label for="data_service" class="form-label">Nama Layanan</label>
+                        <input type="text" class="form-control" id="data_service" name="nama_service" value="{{ $service->nama_service }}" autocomplete="off" required>
                     </div>
                     <div class="mb-3">
-                        <label for="deskripsi_jenis_barang" class="form-label">Deskripsi Jenis Barang</label>
-                        <textarea name="deskripsi_jenis_barang" id="deskripsi_jenis_barang" cols="50" rows="10" class="form-control">{{ $jenis_data_barang->deskripsi_jenis_barang }}</textarea>
+                        <label for="deskripsi_service" class="form-label">Deskripsi Layanan</label>
+                        <textarea name="deskripsi_service" id="deskripsi_service" cols="50" rows="10" class="form-control">{{ $service->deskripsi_service }}</textarea>
                     </div>
                     <div class="row my-2">
                         <div class="col-6 my-2">
@@ -38,8 +38,8 @@
                     </div>
                     <div class="row my-2">
                         <div class="col-6 my-2">
-                            @if ($jenis_data_barang->foto)
-                                <img class="rounded-circle" src="data:image/jpeg;base64,{{ base64_encode($jenis_data_barang->foto) }}" width="100" height="100">
+                            @if ($service->foto)
+                                <img class="rounded-circle" src="data:image/jpeg;base64,{{ base64_encode($service->foto) }}" width="100" height="100">
                             @else
                                 <p>Tidak ada</p>
                             @endif

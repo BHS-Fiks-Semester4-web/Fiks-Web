@@ -9,8 +9,10 @@ use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\DataJenisBarangController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\risetpw;
+use App\Models\Service;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -72,5 +74,10 @@ Route::controller(DataPemasokController::class)->group(function () {
 Route::resource('data_jenis_barang', DataJenisBarangController::class)->middleware('auth');
 Route::controller(DataJenisBarangController::class)->group(function () {
     Route::get('/data_jenis_barang_truncate', 'truncate')->middleware('auth');
+});
+
+Route::resource('data_service', ServiceController::class)->middleware('auth');
+Route::controller(ServiceController::class)->group(function () {
+    Route::get('/data_service_truncate', 'truncate')->middleware('auth');
 });
 

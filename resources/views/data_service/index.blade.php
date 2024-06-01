@@ -4,11 +4,11 @@
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
         <div class="container-fluid pt-1 px-3">
-            <h3 class="m-0 pb-3">Data Jenis Barang</h3>
+            <h3 class="m-0 pb-3">Data Service</h3>
             <div class="bg-light rounded-top p-4">
                 <div class="row">
-                    <a href="/data_jenis_barang/create" class="btn btn-primary mx-3 my-3 col-sm-2" type="button">Membuat</a>
-                    <a href="/data_jenis_barang_truncate" class="btn btn-danger mx-3 my-3 col-sm-2" type="button" onclick="return confirm('Apakah kamu yakin ?')">Hapus Semua</a>
+                    <a href="/data_service/create" class="btn btn-primary mx-3 my-3 col-sm-2" type="button">Membuat</a>
+                    <a href="/data_service_truncate" class="btn btn-danger mx-3 my-3 col-sm-2" type="button" onclick="return confirm('Apakah kamu yakin ?')">Hapus Semua</a>
                 </div>
             </div>
         </div>
@@ -22,16 +22,16 @@
             </div>
         @endif
         <div class="col-md-6">
-            <form action="/data_jenis_barang">
+            <form action="/data_service">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Masukan Nama Jenis Barang..." name="search" autocomplete="off">
+                    <input type="text" class="form-control" placeholder="Masukan Service..." name="search" autocomplete="off">
                     <button class="btn btn-primary" type="submit">Search</button>
                 </div>
             </form>
         </div>
         <div class="col-12">
             <div class="bg-light rounded h-100 p-4">
-                <h6 class="mb-4">Data Jenis Barang</h6>
+                <h6 class="mb-4">Data Layanan</h6>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
@@ -43,16 +43,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data_jenis_barangs as $item)
+                            @foreach ($data_services as $item)
                                 <tr>
                                     <th scope="row">{{ $loop->iteration }}</th>
-                                    <td>{{ $item->nama_jenis_barang }}</td>
+                                    <td>{{ $item->nama_service }}</td>
                                     <td>
                                         <img class="bd-placeholder-img" src="data:image/jpeg;base64,{{ base64_encode($item->foto) }}" width="40" height="40">
                                     </td>
                                     <td>
-                                        <a href="/data_jenis_barang/{{ $item->id }}/edit" type="button" style="margin-right: 10px; color: #454444;"><i class="fas fa-pencil-alt me-2"></i></a>
-                                        <form action="/data_jenis_barang/{{ $item->id }}" method="post" class="d-inline">
+                                        <a href="/data_service/{{ $item->id }}/edit" type="button" style="margin-right: 10px; color: #454444;"><i class="fas fa-pencil-alt me-2"></i></a>
+                                        <form action="/data_service/{{ $item->id }}" method="post" class="d-inline">
                                             @method('delete')
                                             @csrf
                                             <button onclick="return confirm('Apakah kamu yakin ?')" style="background: none; border: none; padding: 0; color: #454444; cursor: pointer;">
@@ -68,7 +68,7 @@
                 <div class="card-footer clearfix">
                     <ul class="pagination pagination-sm m-0 justify-content-center">
                         <li class="page-item">
-                            {{ $data_jenis_barangs->links() }}
+                            {{ $data_services->links() }}
                         </li>
                     </ul>
                 </div>

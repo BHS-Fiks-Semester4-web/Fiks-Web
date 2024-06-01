@@ -29,6 +29,7 @@
                     <a href="/data_pengguna" class="nav-item nav-link {{ Request::is('data_pengguna*') ? 'active' : '' }}"><i class="fa fa-users me-2"></i>Data Pengguna</a>
                     <a href="/data_pemasok" class="nav-item nav-link {{ Request::is('data_pemasok*') ? 'active' : '' }}"><i class="fa fa-truck-field me-2"></i>Data Pemasok</a>
                     <a href="/data_jenis_barang" class="nav-item nav-link {{ Request::is('data_jenis_barang*') ? 'active' : '' }}"><i class="fa fa-clipboard-list me-2"></i>Jenis Barang</a>
+                    <a href="/data_service" class="nav-item nav-link {{ Request::is('data_service*') ? 'active' : '' }}"><i class="fa fa-wrench me-2"></i>Layanan</a>
                 </div>
             </nav>
         </div>
