@@ -84,7 +84,7 @@
                         </div>
                         <div class="col-12 col-md-6 my-2">
                             <label for="foto" class="form-label">Foto</label>
-                            <input type="file" class="form-control" id="foto" name="foto" autocomplete="off" required>
+                            <input type="file" class="form-control" id="foto" name="foto" autocomplete="off">
                         </div>
                     </div>
                     

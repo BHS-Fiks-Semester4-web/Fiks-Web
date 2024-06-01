@@ -49,11 +49,6 @@ class DataPenggunaController extends Controller
             'foto'          => 'image|mimes:jpeg,png,jpg,gif',
         ]);
 
-        $foto = $request->file('foto');
-
-        // Ubah foto menjadi blob
-        $fotoBlob = file_get_contents($foto->getRealPath());
-        // Proses penyimpanan data
         $user = new User();
         $user->name             = $request->name;
         $user->alamat           = $request->alamat;
@@ -64,7 +59,12 @@ class DataPenggunaController extends Controller
         $user->username         = $request->username;
         $user->password         = Hash::make($request->password);
         $user->role             = $request->role;
-        $user->foto             = $fotoBlob;
+        
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto');
+            $fotoBlob = file_get_contents($foto->getRealPath());
+            $user->foto= $fotoBlob;
+        }
         
         $user->save();
 

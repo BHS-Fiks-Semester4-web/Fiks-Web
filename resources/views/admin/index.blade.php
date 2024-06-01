@@ -50,17 +50,15 @@
             </a>
         </div>
         <div class="col-md-3">
-            <a href="{{ url('/dashboard/indexDataPemasok') }}" class="text-white text-decoration-none">
-                <div class="card bg-danger text-white mb-4">
-                    <div class="card-body d-flex align-items-center justify-content-between">
-                        <div>
-                            <h6 class="card-title mb-2">Jumlah Supplier</h6>
-                            <h5 class="display-6">{{ $jumlahSupplier }}</h5>
-                        </div>
-                        <i class="fas fa-truck fa-2x"></i>
+            <div class="card bg-danger text-white mb-4">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="card-title mb-2">Jumlah Pemasok</h6>
+                        <h5 class="display-6">{{ $jumlahSupplier }}</h5>
                     </div>
+                    <i class="fas fa-truck fa-2x"></i>
                 </div>
-            </a>
+            </div>
         </div>
     </div>
 

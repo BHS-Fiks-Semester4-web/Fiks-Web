@@ -43,18 +43,30 @@ class DataJenisBarangController extends Controller
         $foto = $request->file('foto');
         $fotoBlob = file_get_contents($foto->getRealPath());
 
-        $cek = JenisBarang::where('nama_jenis_barang', $validated['nama_jenis_barang'])->get();
-        if ($cek->isNotEmpty()) {
-            return back()->with('message', 'Data sudah ada');
+        $cek = JenisBarang::where('nama_jenis_barang', $validated['nama_jenis_barang'])->first();
+
+        if ($cek) {
+            if ($cek->status == 'aktif') {
+                return back()->with('message', 'Data sudah ada dan sudah aktif');
+            } else {
+                $cek->status = 'aktif';
+                $cek->foto = $fotoBlob;
+                $cek->save();
+
+                return redirect('/data_jenis_barang')->with('update', 'Data diperbarui menjadi aktif');
+            }
         } else {
             $jenisBarang = new JenisBarang();
-            $jenisBarang->nama_jenis_barang = $request->nama_jenis_barang;
+            $jenisBarang->nama_jenis_barang = $validated['nama_jenis_barang'];
             $jenisBarang->foto = $fotoBlob;
+            $jenisBarang->status = 'aktif'; 
             
             $jenisBarang->save();
+            
             return redirect('/data_jenis_barang')->with('create', 'Data ditambahkan');
         }
     }
+
 
     /**
      * Display the specified resource.

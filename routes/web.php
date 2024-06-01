@@ -47,6 +47,8 @@ Route::get('/profile/edit', [ProfilController::class, 'edit'])->name('profile.ed
 Route::post('/profile/edit', [ProfilController::class, 'update'])->name('profile.update');
 
 Route::get('/dashboard/indexDataBarang', [DashboardController::class, 'indexDataBarang'])->name('dashboard.indexDataBarang')->middleware('auth');
+Route::get('/dashboard/indexDataAdmin', [DashboardController::class, 'indexDataAdmin'])->name('dashboard.indexDataAdmin')->middleware('auth');
+Route::get('/dashboard/indexDataKaryawan', [DashboardController::class, 'indexDataKaryawan'])->name('dashboard.indexDataKaryawan')->middleware('auth');
 Route::resource('dashboard', DashboardController::class)->middleware('auth');
 
 Route::resource('data_barang', DataBarangController::class)->middleware('auth');

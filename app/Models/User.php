@@ -46,6 +46,30 @@ class User extends Authenticatable
         return $query->paginate(4)->withQueryString();
     }
 
+    public static function getUserAdmin($search = null)
+    {
+        $query = User::where('status', 'aktif')->where('role', 'admin');
+
+        if($search)
+        {
+            $query->where('name', 'LIKE', "%$search%");
+        }
+
+        return $query->get();
+    }
+    
+    public static function getUserKaryawan($search = null)
+    {
+        $query = User::where('status', 'aktif')->where('role', 'karyawan');
+
+        if($search)
+        {
+            $query->where('name', 'LIKE', "%$search%");
+        }
+
+        return $query->get();
+    }
+
     public $timestamps = false;
 
 

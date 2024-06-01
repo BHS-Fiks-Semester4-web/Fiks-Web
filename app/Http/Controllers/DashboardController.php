@@ -43,35 +43,27 @@ class DashboardController extends Controller
         ]);
     }
 
-    // public function indexDataKaryawan()
-    // {
-    //     $karyawan = User::where('status', 'aktif')->where('role', 'karyawan');
+    public function indexDataKaryawan(Request $request)
+    {
+        $search = $request->input('search');
+        $karyawan = User::getUserKaryawan($search);
 
-    //     return view('dashboard.detail_data_karyawan',[
-    //         'title' => 'Data Karyawan',
-    //         'karyawans' => $karyawan
-    //     ]);
-    // }
+        return view('dashboard.detail_data_karyawan',[
+            'title' => 'Data Karyawan',
+            'data_karyawans' => $karyawan
+        ]);
+    }
 
-    // public function indexDataAdmin()
-    // {
-    //     $admin = User::where('status', 'aktif')->where('role', 'admin');
+    public function indexDataAdmin(Request $request)
+    {
+        $search = $request->input('search');
+        $admin = User::getUserAdmin($search);
 
-    //     return view('dashboard.detail_data_admin',[
-    //         'title' => 'Data Admin',
-    //         'admins' => $admin
-    //     ]);
-    // }
-    
-    // public function indexDataPemasok()
-    // {
-    //     $supplier = Pemasok::where('status', 'aktif');
-
-    //     return view('dashboard.detail_data_supplier',[
-    //         'title' => 'Data Supplier',
-    //         'suppliers' => $supplier
-    //     ]);
-    // }
+        return view('dashboard.detail_data_admin',[
+            'title' => 'Data Admin',
+            'data_admins' => $admin
+        ]);
+    }
 
 
     /**
