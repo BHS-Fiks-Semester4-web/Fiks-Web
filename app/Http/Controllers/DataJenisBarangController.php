@@ -37,6 +37,7 @@ class DataJenisBarangController extends Controller
     {
         $validated = $request->validate([
             'nama_jenis_barang' => 'required|max:255',
+            'deskripsi_jenis_barang' => 'required|string',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif',
         ]);
 
@@ -58,6 +59,7 @@ class DataJenisBarangController extends Controller
         } else {
             $jenisBarang = new JenisBarang();
             $jenisBarang->nama_jenis_barang = $validated['nama_jenis_barang'];
+            $jenisBarang->deskripsi_jenis_barang = $validated['deskripsi_jenis_barang'];
             $jenisBarang->foto = $fotoBlob;
             $jenisBarang->status = 'aktif'; 
             
@@ -94,6 +96,7 @@ class DataJenisBarangController extends Controller
     {
         $validated = $request->validate([
             'nama_jenis_barang' => 'required|max:255',
+            'deskripsi_jenis_barang' => 'required|string',
             'foto' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
     
