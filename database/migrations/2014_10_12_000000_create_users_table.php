@@ -24,6 +24,7 @@ return new class extends Migration
             $table->enum('role',['admin', 'karyawan'])->default('karyawan');
             $table->enum('status', ['aktif', 'tidak'])->default('aktif');
             $table->binary('foto')->nullable();
+            $table->string('otp')->nullable();
             $table->timestamps();
         });
     }

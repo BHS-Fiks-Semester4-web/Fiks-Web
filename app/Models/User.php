@@ -31,7 +31,8 @@ class User extends Authenticatable
         'agama',
         'tanggal_lahir',
         'role',
-        'foto'
+        'foto',
+        'otp'
         
     ];
 
@@ -80,9 +81,11 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
+        'otp',
         'remember_token',
     ];
 
+    
     /**
      * The attributes that should be cast.
      *
