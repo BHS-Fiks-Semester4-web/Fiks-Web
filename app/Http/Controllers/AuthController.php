@@ -193,7 +193,6 @@ class AuthController extends Controller
         }
 }
 
-
 public function resetPassword(Request $request)
 {
     $request->validate([
@@ -201,31 +200,26 @@ public function resetPassword(Request $request)
         'otp' => 'required',
         'password' => 'required',
     ]);
-    
-    
-    // Check if OTP matches
+
+    // Query the user once
     $user = User::where('email', $request->email)->first();
+
+    // Check if OTP matches
     if ($user->otp != $request->otp) {
         if ($user->otp == null) {
             return response()->json(['message' => 'OTP not sent'], 400);
         }
-        return response()->json(['message' => 'Invalid OTP',dd($request->session()->get('otp'))], 400);
+        return response()->json(['message' => 'Invalid OTP'], 400);
     }
 
-    // Reset password
-    $user = User::where('email', $request->email)->first();
+    // Reset password and clear OTP
     $user->password = bcrypt($request->password);
+    $user->otp = null; // Clear the OTP
     $user->save();
 
-    // Clear OTP from session
-    $request->session()->forget('otp');
-
-    $user->update([
-        'otp' => null
-    ]);
-    return response()->json(['message' => 'Password reset successful']);
-    
+    return response()->json(['message' => 'Password reset successful'], 200);
 }
+
 
     // Fungsi untuk mendapatkan data pengguna berdasarkan token
     // public function getUserByToken(Request $request)

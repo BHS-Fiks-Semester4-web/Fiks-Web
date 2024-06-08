@@ -3,14 +3,13 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Mobile\DetailTransaksi;
 use App\Http\Controllers\Mobile\DataBarang;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\Mobile\KategoriController;
 use App\Http\Controllers\Mobile\LupaPw;
-
-
-
-
+use App\Models\Transaksi;
+use App\Http\Controllers\Api\TransaksiController;
 
 
 /*
@@ -45,8 +44,8 @@ Route::post('/reset', [AuthController::class, 'resetPassword']);
 Route::resource('data_barang', DataBarang::class);
 Route::get('barang/{id_jenis_barang}', [DataBarang::class, 'getBarangByIdJenis']);
 
-
-
+//route transaksi mobile
+Route::apiResource('transaksi', TransaksiController::class);
 // Mengambil semua data penghasilan harian
 // Route::get('/daily-incomes', [PenjualanController::class, 'index']);
 

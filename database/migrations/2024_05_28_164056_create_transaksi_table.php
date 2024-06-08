@@ -19,8 +19,7 @@ return new class extends Migration
             $table->integer('kembalian');
 
             $table->foreign('id_karyawan')->references('id')->on('users');
-            $table->timestamps();
-        });
+            $table->timestamps();});
     }
 
     /**

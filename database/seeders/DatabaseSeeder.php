@@ -78,6 +78,7 @@ class DatabaseSeeder extends Seeder
             'alamat_supplier'   => 'Jember',
             'no_hp_supplier'    => '085156915879',
             'status'            => 'aktif',
+            
         ],
         [
             'nama_supplier'     => 'Wahyu Isdarmawan',
@@ -111,21 +112,25 @@ class DatabaseSeeder extends Seeder
                 'nama_jenis_barang' => 'Laptop',
                 'foto' => $imageBlob,
                 'status' => 'aktif',
+                'deskripsi_jenis_barang' => 'Baru'
             ],
             [
                 'nama_jenis_barang' => 'Computer',
                 'foto' => $imageBlob,
                 'status' => 'aktif',
+                'deskripsi_jenis_barang' => 'Baru'
             ],
             [
                 'nama_jenis_barang' => 'CCTV',
                 'foto' => $imageBlob,
                 'status' => 'aktif',
+                'deskripsi_jenis_barang' => 'Baru'
             ],
             [
                 'nama_jenis_barang' => 'Perangkat Lainnya',
                 'foto' => $imageBlob,
                 'status' => 'aktif',
+                'deskripsi_jenis_barang' => 'Baru'
             ]
         ]);
     }
