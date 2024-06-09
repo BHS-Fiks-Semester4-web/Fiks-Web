@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Barang;
 use App\Models\JenisBarang;
 use App\Models\Pemasok;
+use App\Models\Pengeluaran;
+use App\Models\DetailTransaksi;
+use Illuminate\Support\Facades\DB;
 
 class DataBarangController extends Controller
 {
@@ -51,15 +54,23 @@ class DataBarangController extends Controller
             'garansi_barang' => 'nullable|string|max:255',
             'deskripsi_barang' => 'required|string',
             'foto_barang' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'created_at' => now()
         ]);
 
-        // Jika ada file gambar yang diunggah, simpan sebagai blob
+        
         if ($request->hasFile('foto_barang')) {
             $validated['foto_barang'] = file_get_contents($request->file('foto_barang')->getRealPath());
         }
 
-        // Buat barang baru
-        Barang::create($validated);
+        
+        $barang = Barang::create($validated);
+
+        Pengeluaran::create([
+            'id_barang' => $barang->id,
+            'nama_pengeluaran' => $validated['nama_barang'],
+            'total_pengeluaran' => $validated['stok_barang'] * $validated['harga_beli_barang'],
+            'created_at' => now()
+        ]);
 
         return redirect('/data_barang')->with('create', 'Data ditambahkan');
     }
@@ -110,26 +121,16 @@ class DataBarangController extends Controller
         ]);
 
         $data_barang = Barang::findOrFail($id);
+        $data_barang->update($request->all());
+        $stok_awal = $data_barang->stok_barang;
 
-        $data_barang->id_supplier                   = $request->id_supplier;
-        $data_barang->id_jenis_barang               = $request->id_jenis_barang;
-        $data_barang->nama_barang                   = $request->nama_barang;
-        $data_barang->stok_barang                   = $request->stok_barang;
-        $data_barang->harga_beli_barang             = $request->harga_beli_barang;
-        $data_barang->harga_sebelum_diskon_barang   = $request->harga_sebelum_diskon_barang;
-        $data_barang->diskon_barang                 = $request->diskon_barang;
-        $data_barang->harga_setelah_diskon_barang   = $request->harga_setelah_diskon_barang;
-        $data_barang->exp_diskon_barang             = $request->exp_diskon_barang;
-        $data_barang->garansi_barang                = $request->garansi_barang;
-        $data_barang->deskripsi_barang              = $request->deskripsi_barang;
+        $qty_detail_transaksi = DetailTransaksi::where('id_barang', $id)->sum('qty');
+        $total_pengeluaran = ($qty_detail_transaksi + $stok_awal) * $data_barang->harga_beli_barang;
 
-        if ($request->hasFile('foto_barang')) {
-            $foto = $request->file('foto_barang');
-            $fotoBlob = file_get_contents($foto->getRealPath());
-            $data_barang->foto = $fotoBlob;
-        }
-
-        $data_barang->save();
+        Pengeluaran::where('id_barang', $id)->update([
+            'nama_pengeluaran' => $data_barang->nama_barang,    
+            'total_pengeluaran' => $total_pengeluaran,
+        ]);
 
         return redirect('data_barang/'.$id)->with('update', 'Data barang berhasil diupdate.');
     }
@@ -147,7 +148,14 @@ class DataBarangController extends Controller
 
     public function truncate()
     {
+        // Barang::query()->update(['status' => 'tidak']);
+        // return back()->with('delete', 'Data dihapus');
         Barang::query()->update(['status' => 'tidak']);
+        
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0'); 
+        DB::table('barang')->truncate(); 
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1'); 
+
         return back()->with('delete', 'Data dihapus');
     }
 }

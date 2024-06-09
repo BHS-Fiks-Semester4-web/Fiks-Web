@@ -47,6 +47,7 @@ class DataPenggunaController extends Controller
             'password'      => 'required|max:255',
             'role'          => 'required|max:255',
             'foto'          => 'image|mimes:jpeg,png,jpg,gif',
+            'created_at'    => now()
         ]);
 
         $user = new User();

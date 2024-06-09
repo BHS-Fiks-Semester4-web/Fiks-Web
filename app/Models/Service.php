@@ -9,6 +9,7 @@ class Service extends Model
 {
     use HasFactory;
 
+    public $timestamps = true;
     protected $table = 'service';
     protected $guarded = ['id'];
 

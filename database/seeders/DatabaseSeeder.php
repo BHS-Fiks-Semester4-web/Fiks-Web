@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         $this -> PemasokSeeder();
         $this -> JenisBarangSeeder();
         $this -> ServiceSeeder();
-        $this -> BarangSeeder();
+        // $this -> BarangSeeder();
     }
 
     public function UserSeeder()
@@ -185,109 +185,109 @@ class DatabaseSeeder extends Seeder
         ]);
     }
 
-    public function BarangSeeder()
-    {
-        $asusTufPath = public_path('image\barang_seed\asus_tuf_gaming_f15_fx506.png');
-        $HpE27uPath = public_path('image\barang_seed\HP E27u G5 27 inch QHD Monitor.png');
-        $laptopAcerA3Path = public_path('image\barang_seed\laptop_acer_aspire_3_spin_14.png');
-        $laptopAcerA5Path = public_path('image\barang_seed\laptop_acer_aspire_5_spin_14.png');
-        $legion5iPath = public_path('image\barang_seed\Legion 5i (16, Gen 9).png');
-        $thinkPadPath = public_path('image\barang_seed\ThinkPad X1 Carbon Gen 11 (14″ Intel).png');
-        $victusPath = public_path('image\barang_seed\victus_16_inch.png');
+    // public function BarangSeeder()
+    // {
+    //     $asusTufPath = public_path('image\barang_seed\asus_tuf_gaming_f15_fx506.png');
+    //     $HpE27uPath = public_path('image\barang_seed\HP E27u G5 27 inch QHD Monitor.png');
+        // $laptopAcerA3Path = public_path('image\barang_seed\laptop_acer_aspire_3_spin_14.png');
+        // $laptopAcerA5Path = public_path('image\barang_seed\laptop_acer_aspire_5_spin_14.png');
+        // $legion5iPath = public_path('image\barang_seed\Legion 5i (16, Gen 9).png');
+        // $thinkPadPath = public_path('image\barang_seed\ThinkPad X1 Carbon Gen 11 (14″ Intel).png');
+        // $victusPath = public_path('image\barang_seed\victus_16_inch.png');
 
-        $asusTuf = file_get_contents($asusTufPath);
-        $HpE27u = file_get_contents($HpE27uPath);
-        $laptopAcerA3 = file_get_contents($laptopAcerA3Path);
-        $laptopAcerA5 = file_get_contents($laptopAcerA5Path);
-        $legion5i = file_get_contents($legion5iPath);
-        $thinkPad = file_get_contents($thinkPadPath);
-        $victus = file_get_contents($victusPath);
+        // $asusTuf = file_get_contents($asusTufPath);
+        // $HpE27u = file_get_contents($HpE27uPath);
+        // $laptopAcerA3 = file_get_contents($laptopAcerA3Path);
+        // $laptopAcerA5 = file_get_contents($laptopAcerA5Path);
+        // $legion5i = file_get_contents($legion5iPath);
+        // $thinkPad = file_get_contents($thinkPadPath);
+        // $victus = file_get_contents($victusPath);
 
-        DB::table('barang')->insert([
-            [
-                'id_jenis_barang'               => 1,
-                'nama_barang'                   => 'Asus Tuf Gaming',
-                'stok_barang'                   => 3,
-                'harga_beli_barang'             => 8000000,
-                'harga_sebelum_diskon_barang'   => 10000000,
-                'harga_setelah_diskon_barang'   => 10000000,
-                'garansi_barang'                => '1 Tahun',
-                'deskripsi_barang'              => 'Windows 11, AMD Ryzen, GeForce RTX',
-                'foto_barang'                   => $asusTuf,
-                'status'                        => 'aktif',
-            ],
-            [
-                'id_jenis_barang'               => 2,
-                'nama_barang'                   => 'HP E27u G5 27 inch QHD Monitor',
-                'stok_barang'                   => 3,
-                'harga_beli_barang'             => 4000000,
-                'harga_sebelum_diskon_barang'   => 6000000,
-                'harga_setelah_diskon_barang'   => 6000000,
-                'garansi_barang'                => '1 Tahun',
-                'deskripsi_barang'              => '27 inch QHD (2560 x 1440), Flat IPS with Edge-lit, HDMI,USB-C,DisplayPort',
-                'foto_barang'                   => $HpE27u,
-                'status'                        => 'aktif',
-            ],
-            [
-                'id_jenis_barang'               => 1,
-                'nama_barang'                   => 'Aspire 3 Spin 14',
-                'stok_barang'                   => 3,
-                'harga_beli_barang'             => 5000000,
-                'harga_sebelum_diskon_barang'   => 8000000,
-                'harga_setelah_diskon_barang'   => 8000000,
-                'garansi_barang'                => '1 Tahun',
-                'deskripsi_barang'              => 'Windows 11 Home Single Language 64-bit, 8GB, LPDDR5',
-                'foto_barang'                   => $laptopAcerA3,
-                'status'                        => 'aktif',
-            ],
-            [
-                'id_jenis_barang'               => 1,
-                'nama_barang'                   => 'Aspire 5 Spin 14',
-                'stok_barang'                   => 3,
-                'harga_beli_barang'             => 10000000,
-                'harga_sebelum_diskon_barang'   => 12000000,
-                'harga_setelah_diskon_barang'   => 12000000,
-                'garansi_barang'                => '1 Tahun',
-                'deskripsi_barang'              => '35.6cm (14 inch), 16GB, Iris Xe Graphics eligible',
-                'foto_barang'                   => $laptopAcerA5,
-                'status'                        => 'aktif',
-            ],
-            [
-                'id_jenis_barang'               => 1,
-                'nama_barang'                   => 'Legion 5i (16 inch, Gen 9)',
-                'stok_barang'                   => 3,
-                'harga_beli_barang'             => 9000000,
-                'harga_sebelum_diskon_barang'   => 11000000,
-                'harga_setelah_diskon_barang'   => 11000000,
-                'garansi_barang'                => '1 Tahun',
-                'deskripsi_barang'              => 'Up to Windows 11 Pro, Up to 32GB 5600MHz DDR5',
-                'foto_barang'                   => $legion5i,
-                'status'                        => 'aktif',
-            ],
-            [
-                'id_jenis_barang'               => 1,
-                'nama_barang'                   => 'ThinkPad X1 Carbon Gen 11 (14 inch Intel)',
-                'stok_barang'                   => 3,
-                'harga_beli_barang'             => 8000000,
-                'harga_sebelum_diskon_barang'   => 10000000,
-                'harga_setelah_diskon_barang'   => 10000000,
-                'garansi_barang'                => '1 Tahun',
-                'deskripsi_barang'              => 'Up to Windows 11 Pro, Up to 64GB LPDDR5',
-                'foto_barang'                   => $thinkPad,
-                'status'                        => 'aktif',
-            ],
-            [
-                'id_jenis_barang'               => 1,
-                'nama_barang'                   => 'HP Victus 16 inch Gaming Laptop 16-r1012TX',
-                'stok_barang'                   => 3,
-                'harga_beli_barang'             => 25000000,
-                'harga_sebelum_diskon_barang'   => 30000000,
-                'harga_setelah_diskon_barang'   => 30000000,
-                'garansi_barang'                => '1 Tahun',
-                'deskripsi_barang'              => 'Windows 11 Home Single Language, 32 GB DDR5 RAM',
-                'foto_barang'                   => $victus,
-                'status'                        => 'aktif',
-            ],
-        ]);
-    }
+        // DB::table('barang')->insert([
+        //     [
+        //         'id_jenis_barang'               => 1,
+        //         'nama_barang'                   => 'Asus Tuf Gaming',
+        //         'stok_barang'                   => 3,
+        //         'harga_beli_barang'             => 8000000,
+        //         'harga_sebelum_diskon_barang'   => 10000000,
+        //         'harga_setelah_diskon_barang'   => 10000000,
+        //         'garansi_barang'                => '1 Tahun',
+        //         'deskripsi_barang'              => 'Windows 11, AMD Ryzen, GeForce RTX',
+        //         'foto_barang'                   => $asusTuf,
+        //         'status'                        => 'aktif',
+        //     ],
+        //     [
+        //         'id_jenis_barang'               => 2,
+        //         'nama_barang'                   => 'HP E27u G5 27 inch QHD Monitor',
+        //         'stok_barang'                   => 3,
+        //         'harga_beli_barang'             => 4000000,
+        //         'harga_sebelum_diskon_barang'   => 6000000,
+        //         'harga_setelah_diskon_barang'   => 6000000,
+        //         'garansi_barang'                => '1 Tahun',
+        //         'deskripsi_barang'              => '27 inch QHD (2560 x 1440), Flat IPS with Edge-lit, HDMI,USB-C,DisplayPort',
+        //         'foto_barang'                   => $HpE27u,
+        //         'status'                        => 'aktif',
+        //     ],
+            // [
+            //     'id_jenis_barang'               => 1,
+            //     'nama_barang'                   => 'Aspire 3 Spin 14',
+            //     'stok_barang'                   => 3,
+            //     'harga_beli_barang'             => 5000000,
+            //     'harga_sebelum_diskon_barang'   => 8000000,
+            //     'harga_setelah_diskon_barang'   => 8000000,
+            //     'garansi_barang'                => '1 Tahun',
+            //     'deskripsi_barang'              => 'Windows 11 Home Single Language 64-bit, 8GB, LPDDR5',
+            //     'foto_barang'                   => $laptopAcerA3,
+            //     'status'                        => 'aktif',
+            // ],
+            // [
+            //     'id_jenis_barang'               => 1,
+            //     'nama_barang'                   => 'Aspire 5 Spin 14',
+            //     'stok_barang'                   => 3,
+            //     'harga_beli_barang'             => 10000000,
+            //     'harga_sebelum_diskon_barang'   => 12000000,
+            //     'harga_setelah_diskon_barang'   => 12000000,
+            //     'garansi_barang'                => '1 Tahun',
+            //     'deskripsi_barang'              => '35.6cm (14 inch), 16GB, Iris Xe Graphics eligible',
+            //     'foto_barang'                   => $laptopAcerA5,
+            //     'status'                        => 'aktif',
+            // ],
+            // [
+            //     'id_jenis_barang'               => 1,
+            //     'nama_barang'                   => 'Legion 5i (16 inch, Gen 9)',
+            //     'stok_barang'                   => 3,
+            //     'harga_beli_barang'             => 9000000,
+            //     'harga_sebelum_diskon_barang'   => 11000000,
+            //     'harga_setelah_diskon_barang'   => 11000000,
+            //     'garansi_barang'                => '1 Tahun',
+            //     'deskripsi_barang'              => 'Up to Windows 11 Pro, Up to 32GB 5600MHz DDR5',
+            //     'foto_barang'                   => $legion5i,
+            //     'status'                        => 'aktif',
+            // ],
+            // [
+            //     'id_jenis_barang'               => 1,
+            //     'nama_barang'                   => 'ThinkPad X1 Carbon Gen 11 (14 inch Intel)',
+            //     'stok_barang'                   => 3,
+            //     'harga_beli_barang'             => 8000000,
+            //     'harga_sebelum_diskon_barang'   => 10000000,
+            //     'harga_setelah_diskon_barang'   => 10000000,
+            //     'garansi_barang'                => '1 Tahun',
+            //     'deskripsi_barang'              => 'Up to Windows 11 Pro, Up to 64GB LPDDR5',
+            //     'foto_barang'                   => $thinkPad,
+            //     'status'                        => 'aktif',
+            // ],
+            // [
+            //     'id_jenis_barang'               => 1,
+            //     'nama_barang'                   => 'HP Victus 16 inch Gaming Laptop 16-r1012TX',
+            //     'stok_barang'                   => 3,
+            //     'harga_beli_barang'             => 25000000,
+            //     'harga_sebelum_diskon_barang'   => 30000000,
+            //     'harga_setelah_diskon_barang'   => 30000000,
+            //     'garansi_barang'                => '1 Tahun',
+            //     'deskripsi_barang'              => 'Windows 11 Home Single Language, 32 GB DDR5 RAM',
+            //     'foto_barang'                   => $victus,
+            //     'status'                        => 'aktif',
+            // ],
+    //     ]);
+    // }
 }

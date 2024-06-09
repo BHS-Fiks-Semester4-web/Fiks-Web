@@ -39,6 +39,7 @@ class DataJenisBarangController extends Controller
             'nama_jenis_barang' => 'required|max:255',
             'deskripsi_jenis_barang' => 'required|string',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'created_at' => now()
         ]);
 
         $foto = $request->file('foto');

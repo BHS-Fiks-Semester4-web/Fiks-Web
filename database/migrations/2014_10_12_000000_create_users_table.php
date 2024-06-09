@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Mobile\Transaksi;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

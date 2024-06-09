@@ -9,6 +9,7 @@ class JenisBarang extends Model
 {
     use HasFactory;
 
+    public $timestamps = true;
     protected $table = 'jenis_barang';
     protected $guarded = ['id'];
 

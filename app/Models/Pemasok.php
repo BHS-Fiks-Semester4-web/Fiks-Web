@@ -9,6 +9,7 @@ class Pemasok extends Model
 {
     use HasFactory;
 
+    public $timestamps = true;
     protected $table = 'supplier';
     protected $guarded = ['id'];
 

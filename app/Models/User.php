@@ -71,7 +71,12 @@ class User extends Authenticatable
         return $query->get();
     }
 
-    public $timestamps = false;
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class, 'id_karyawan');
+    }
+
+    public $timestamps = true;
 
 
     /**

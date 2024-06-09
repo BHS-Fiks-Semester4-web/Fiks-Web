@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pemasok;
+use Illuminate\Support\Facades\DB;
 
 class DataPemasokController extends Controller
 {
@@ -39,6 +40,7 @@ class DataPemasokController extends Controller
             'nama_supplier' => 'required|max:255',
             'alamat_supplier' => 'required|max:255',
             'no_hp_supplier' => 'required|max:255',
+            'created_at' => now()
         ]);
 
         $cek = Pemasok::where('nama_supplier', $validated['nama_supplier'])->get();
@@ -101,7 +103,15 @@ class DataPemasokController extends Controller
 
     public function truncate()
     {
+        // Pemasok::query()->update(['status' => 'tidak']);
+        // return back()->with('delete', 'Data dihapus');
+
         Pemasok::query()->update(['status' => 'tidak']);
+        
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0'); 
+        DB::table('supplier')->truncate(); 
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1'); 
+
         return back()->with('delete', 'Data dihapus');
     }
 }

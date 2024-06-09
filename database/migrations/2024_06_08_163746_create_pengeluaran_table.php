@@ -13,14 +13,10 @@ return new class extends Migration
     {
         Schema::create('pengeluaran', function (Blueprint $table) {
             $table->id();
-            // $table->string('nama_barang');
-            // $table->integer('stok_barang');
-            // $table->integer('harga_beli_barang');
-            // $table->integer('harga_sebelum_diskon_barang');
-            // $table->integer('harga_setelah_diskon_barang')->nullable();
-            // $table->string('deskripsi_barang');
-            // $table->binary('foto_barang')->nullable();
-            // $table->enum('status', ['aktif','tidak'])->default('aktif');
+            $table->foreignId('id_barang')->nullable()->constrained('barang')->onDelete('cascade');
+            $table->string('nama_pengeluaran');
+            $table->integer('total_pengeluaran');
+            $table->enum('status', ['aktif','tidak'])->default('aktif');
             $table->timestamps();
         });
     }
