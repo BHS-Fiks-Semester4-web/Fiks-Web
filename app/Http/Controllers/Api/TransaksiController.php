@@ -5,6 +5,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Mobile\Transaksi;
 use Illuminate\Http\Request;
 
+use App\Models\Mobile\DetailTransaksi;
+
 class TransaksiController extends Controller
 {
     public function index()
@@ -13,19 +15,45 @@ class TransaksiController extends Controller
         return response()->json($transaksi);
     }
 
+    
     public function store(Request $request)
     {
+        // Validate the request...
         $validatedData = $request->validate([
-            'id_karyawan' => 'required|exists:users,id',
+            'id_karyawan' => 'required',
             'total_harga' => 'required|numeric',
             'bayar' => 'required|numeric',
             'kembalian' => 'required|numeric',
+            'detail_transaksi.*.id_barang' => 'required|integer',
+            'detail_transaksi.*.qty' => 'required|integer',
+            'detail_transaksi.*.sub_total' => 'required|numeric',
         ]);
-
-        $transaksi = Transaksi::create($validatedData);
-        return response()->json($transaksi, 201);
+    
+        // Membuat transaksi
+        $transaksi = Transaksi::create([
+            'id_karyawan' => $validatedData['id_karyawan'],
+            'total_harga' => $validatedData['total_harga'],
+            'bayar' => $validatedData['bayar'],
+            'kembalian' => $validatedData['kembalian'],
+        ]);
+    
+        // Check if detail_transaksi is provided and is an array
+        if (isset($request->detail_transaksi) && is_array($request->detail_transaksi)) {
+            foreach ($request->detail_transaksi as $detail) {
+                DetailTransaksi::create([
+                    'id_transaksi' => $transaksi->id, // Correct foreign key column name
+                    'id_barang' => $detail['id_barang'],
+                    'qty' => $detail['qty'],
+                    'sub_total' => $detail['sub_total'],
+                    // Ensure all necessary fields are included
+                ]);
+            }
+        } else {
+            // Optionally handle the case where detail_transaksi is not provided or not an array
+        }
+    
+        return response()->json(['message' => 'Transaction created successfully']);
     }
-
     public function show($id)
     {
         $transaksi = Transaksi::with('karyawan')->findOrFail($id);
