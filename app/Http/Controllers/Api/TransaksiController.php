@@ -6,7 +6,7 @@ use App\Models\Mobile\Transaksi;
 use Illuminate\Http\Request;
 
 use App\Models\Mobile\DetailTransaksi;
-
+use App\Models\Barang;
 class TransaksiController extends Controller
 {
     public function index()
@@ -47,12 +47,24 @@ class TransaksiController extends Controller
                     'sub_total' => $detail['sub_total'],
                     // Ensure all necessary fields are included
                 ]);
+                $barang = Barang::find($detail['id_barang']);
+                if ($barang) {
+                    $test = $barang->stok_barang;
+                    $barang->stok_barang -= $detail['qty']; // Assuming 'stok_barang' is the column name for stock in Barang table
+                    $barang->save(); // Save the updated Barang record
+                    $tes2 = $barang->stok_barang;
+                    $idbr = $barang->id;
+                } else {
+                    dd('Barang not found');
+                }
             }
+            
         } else {
-            // Optionally handle the case where detail_transaksi is not provided or not an array
+            print_r('detail_transaksi is not provided or not an array');
+
         }
     
-        return response()->json(['message' => 'Transaction created successfully']);
+        return response()->json(['message' => 'Transaction created successfully', $test, $tes2, $idbr]);
     }
     public function show($id)
     {
