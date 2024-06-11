@@ -122,7 +122,18 @@ class DataBarangController extends Controller
 
         $data_barang = Barang::findOrFail($id);
         $data_barang->update($request->all());
+
+        if ($request->hasFile('foto_barang')) {
+            $foto = $request->file('foto_barang');
+            $fotoBlob = file_get_contents($foto->getRealPath());
+            $data_barang->foto_barang = $fotoBlob;
+        }
+
         $stok_awal = $data_barang->stok_barang;
+        if ($stok_awal == 0) {
+            $data_barang->status = 'tidak';
+            $data_barang->save();
+        }
 
         $qty_detail_transaksi = DetailTransaksi::where('id_barang', $id)->sum('qty');
         $total_pengeluaran = ($qty_detail_transaksi + $stok_awal) * $data_barang->harga_beli_barang;

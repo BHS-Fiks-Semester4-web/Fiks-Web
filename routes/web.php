@@ -58,8 +58,6 @@ Route::resource('dashboard', DashboardController::class)->middleware('auth');
 Route::resource('data_barang', DataBarangController::class)->middleware('auth');
 Route::controller(DataBarangController::class)->group(function () {
     Route::get('/data_barang_truncate', 'truncate')->middleware('auth');
-    Route::post('/data_barang/storePemasok', 'storePemasok')->name('storePemasok');
-    Route::post('/data_barang/storeJenisBarang', 'storeJenisBarang')->name('storeJenisBarang');
 });
 
 Route::resource('data_pengguna', DataPenggunaController::class)->middleware('auth');

@@ -32,46 +32,50 @@
         <div class="col-12">
             <div class="bg-light rounded h-100 p-4">
                 <h6 class="mb-4">Data Pengguna</h6>
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Alamat</th>
-                                <th scope="col">Nomor Handphone</th>
-                                <th scope="col">Role</th>
-                                <th scope="col">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($data_penggunas as $item)
+                @if ($data_penggunas && $data_penggunas->count() > 0)
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <th scope="row">{{ $loop->iteration }}</th>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->alamat }}</td>
-                                    <td>{{ $item->no_hp }}</td>
-                                    <td>{{ $item->role }}</td>
-                                    <td>
-                                        <a href="/data_pengguna/{{ $item->id }}" type="button" style="margin-right: 10px; color: #454444;"><i class="fas fa-info-circle me-2"></i></a>
-                                        @if ($item->role === 'admin')
-                                            <a href="{{ route('data_pengguna.toggleRole', $item->id) }}" type="button" style="margin-right: 10px; color: #454444;"><i class="fas fa-exchange-alt me-2"></i></a>
-                                        @elseif ($item->role === 'karyawan')
-                                            <a href="{{ route('data_pengguna.toggleRole', $item->id) }}" type="button" style="margin-right: 10px; color: #454444;"><i class="fas fa-exchange-alt me-2"></i></a>
-                                        @endif
-                                        <form action="/data_pengguna/{{ $item->id }}" method="post" class="d-inline">
-                                            @method('delete')
-                                            @csrf
-                                            <button onclick="return confirm('Apakah kamu yakin ?')" style="background: none; border: none; padding: 0; color: #454444; cursor: pointer;">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </form>                                        
-                                    </td>                                    
+                                    <th scope="col">No</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Alamat</th>
+                                    <th scope="col">Nomor Handphone</th>
+                                    <th scope="col">Role</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                                @foreach ($data_penggunas as $item)
+                                    <tr>
+                                        <th scope="row">{{ $loop->iteration }}</th>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->alamat }}</td>
+                                        <td>{{ $item->no_hp }}</td>
+                                        <td>{{ $item->role }}</td>
+                                        <td>
+                                            <a href="/data_pengguna/{{ $item->id }}" type="button" style="margin-right: 10px; color: #454444;"><i class="fas fa-info-circle me-2"></i></a>
+                                            @if ($item->role === 'admin')
+                                                <a href="{{ route('data_pengguna.toggleRole', $item->id) }}" type="button" style="margin-right: 10px; color: #454444;"><i class="fas fa-exchange-alt me-2"></i></a>
+                                            @elseif ($item->role === 'karyawan')
+                                                <a href="{{ route('data_pengguna.toggleRole', $item->id) }}" type="button" style="margin-right: 10px; color: #454444;"><i class="fas fa-exchange-alt me-2"></i></a>
+                                            @endif
+                                            <form action="/data_pengguna/{{ $item->id }}" method="post" class="d-inline">
+                                                @method('delete')
+                                                @csrf
+                                                <button onclick="return confirm('Apakah kamu yakin ?')" style="background: none; border: none; padding: 0; color: #454444; cursor: pointer;">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </form>                                        
+                                        </td>                                    
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @else
+                    <p class="text-center">Tidak ada</p>
+                @endif
                 <div class="card-footer clearfix">
                     <ul class="pagination pagination-sm m-0 justify-content-center">
                         <li class="page-item">

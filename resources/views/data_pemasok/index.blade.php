@@ -32,39 +32,43 @@
         <div class="col-12">
             <div class="bg-light rounded h-100 p-4">
                 <h6 class="mb-4">Data Pemasok</h6>
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Alamat</th>
-                                <th scope="col">Nomor Handphone</th>
-                                <th scope="col">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($data_pemasoks as $item)
+                @if ($data_pemasoks && $data_pemasoks->count() > 0)
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <th scope="row">{{ $loop->iteration }}</th>
-                                    <td>{{ $item->nama_supplier }}</td>
-                                    <td>{{ $item->alamat_supplier }}</td>
-                                    <td>{{ $item->no_hp_supplier }}</td>
-                                    <td>
-                                        <a href="/data_pemasok/{{ $item->id }}/edit" type="button" style="margin-right: 10px; color: #454444;"><i class="fas fa-pencil-alt me-2"></i></a>
-                                        <form action="/data_pemasok/{{ $item->id }}" method="post" class="d-inline">
-                                            @method('delete')
-                                            @csrf
-                                            <button onclick="return confirm('Apakah kamu yakin ?')" style="background: none; border: none; padding: 0; color: #454444; cursor: pointer;">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </form>
-                                    </td>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Alamat</th>
+                                    <th scope="col">Nomor Handphone</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                                @foreach ($data_pemasoks as $item)
+                                    <tr>
+                                        <th scope="row">{{ $loop->iteration }}</th>
+                                        <td>{{ $item->nama_supplier }}</td>
+                                        <td>{{ $item->alamat_supplier }}</td>
+                                        <td>{{ $item->no_hp_supplier }}</td>
+                                        <td>
+                                            <a href="/data_pemasok/{{ $item->id }}/edit" type="button" style="margin-right: 10px; color: #454444;"><i class="fas fa-pencil-alt me-2"></i></a>
+                                            <form action="/data_pemasok/{{ $item->id }}" method="post" class="d-inline">
+                                                @method('delete')
+                                                @csrf
+                                                <button onclick="return confirm('Apakah kamu yakin ?')" style="background: none; border: none; padding: 0; color: #454444; cursor: pointer;">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @else
+                    <p class="text-center">Tidak ada</p>
+                @endif
                 <div class="card-footer clearfix">
                     <ul class="pagination pagination-sm m-0 justify-content-center">
                         <li class="page-item">

@@ -32,39 +32,43 @@
     <div class="col-12">
         <div class="bg-light rounded h-100 p-4">
             <h6 class="mb-4">Data Pengeluaran</h6>
-            <div class="table-responsive mt-3">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Nama Pengeluaran</th>
-                            <th scope="col">Total Pengeluaran</th>
-                            <th scope="col">Tanggal Masuk</th>
-                            <th scope="col">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($data_pengeluarans as $item)
+            @if ($data_pengeluarans && $data_pengeluarans->count() > 0)
+                <div class="table-responsive mt-3">
+                    <table class="table">
+                        <thead>
                             <tr>
-                                <td>{{ $item->id }}</td>
-                                <td>{{ $item->nama_pengeluaran }}</td>
-                                <td>{{ $item->total_pengeluaran }}</td>
-                                <td>{{ $item->created_at }}</td>
-                                <td>
-                                    <a href="/data_pengeluaran/{{ $item->id }}/edit" type="button" style="margin-right: 10px; color: #454444;"><i class="fas fa-pencil-alt me-2"></i></a>
-                                    <form action="/data_pengeluaran/{{ $item->id }}" method="post" class="d-inline">
-                                        @method('delete')
-                                        @csrf
-                                        <button onclick="return confirm('Apakah kamu yakin ?')" style="background: none; border: none; padding: 0; color: #454444; cursor: pointer;">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </td>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nama Pengeluaran</th>
+                                <th scope="col">Total Pengeluaran</th>
+                                <th scope="col">Tanggal Masuk</th>
+                                <th scope="col">Aksi</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            @foreach ($data_pengeluarans as $item)
+                                <tr>
+                                    <td>{{ $item->id }}</td>
+                                    <td>{{ $item->nama_pengeluaran }}</td>
+                                    <td>{{ $item->total_pengeluaran }}</td>
+                                    <td>{{ $item->created_at }}</td>
+                                    <td>
+                                        <a href="/data_pengeluaran/{{ $item->id }}/edit" type="button" style="margin-right: 10px; color: #454444;"><i class="fas fa-pencil-alt me-2"></i></a>
+                                        <form action="/data_pengeluaran/{{ $item->id }}" method="post" class="d-inline">
+                                            @method('delete')
+                                            @csrf
+                                            <button onclick="return confirm('Apakah kamu yakin ?')" style="background: none; border: none; padding: 0; color: #454444; cursor: pointer;">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @else
+                <p class="text-center">Tidak ada</p>
+            @endif
             @if (request('search'))
             @else
                 <div class="card-footer clearfix">

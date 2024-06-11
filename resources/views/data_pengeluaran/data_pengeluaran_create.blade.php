@@ -24,7 +24,7 @@
                     @csrf
                     <div class="mb-3">
                         <label for="nama_pengeluaran" class="form-label">Nama Pengeluaran</label>
-                        <input type="text" class="form-control" id="nama_pengeluaran" name="nama_pengeluaran" autocomplete="off" required>
+                        <input type="text" class="form-control" id="nama_pengeluaran" name="nama_pengeluaran" autocomplete="off" oninput="capitalize(this)" required>
                     </div>
                     <div class="mb-3">
                         <label for="total_pengeluaran" class="form-label">Total Pengeluaran</label>

@@ -215,7 +215,7 @@ class DatabaseSeeder extends Seeder
                 'harga_beli_barang'             => 8000000,
                 'harga_sebelum_diskon_barang'   => 10000000,
                 'harga_setelah_diskon_barang'   => 10000000,
-                'exp_diskon_barang'                    => '2023-12-31',
+                'exp_diskon_barang'             => '2023-12-31',
                 'diskon_barang'                 => 20,
                 'garansi_barang'                => '1 Tahun',
                 'deskripsi_barang'              => 'Windows 11, AMD Ryzen, GeForce RTX',
