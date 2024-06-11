@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('detail_transaksi', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('id_transaksi');
             $table->unsignedBigInteger('id_barang');
             $table->integer('qty');
@@ -19,7 +20,6 @@ return new class extends Migration
 
             $table->foreign('id_barang')->references('id')->on('barang');
             $table->foreign('id_transaksi')->references('id')->on('transaksi');
-            $table->timestamps();
         });
     }
 

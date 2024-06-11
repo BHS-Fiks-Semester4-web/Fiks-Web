@@ -46,8 +46,6 @@ Route::get('barang/{id_jenis_barang}', [DataBarang::class, 'getBarangByIdJenis']
 
 //route transaksi mobile
 Route::apiResource('transaksi', TransaksiController::class);
-// Mengambil semua data penghasilan harian
-// Route::get('/daily-incomes', [PenjualanController::class, 'index']);
 
 
 Route::get('/kategori', [KategoriController::class, 'index']);
