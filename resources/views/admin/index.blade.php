@@ -66,30 +66,37 @@
     {{-- Carousel --}}
     <div id="carouselExample" class="carousel slide mt-4" data-bs-ride="carousel">
         <div class="carousel-inner">
-            @foreach($items->chunk(4) as $chunkIndex => $chunk)
-                <div class="carousel-item {{ $chunkIndex == 0 ? 'active' : '' }}">
-                    <div class="row">
-                        @foreach($chunk as $item)
-                            <div class="col-md-3 col-12"> {{-- Change col-md-3 to col-12 --}}
-                                <div class="card" style="position: relative; height: 380px;">
-                                    <img src="{{ 'data:image/jpeg;base64,' . base64_encode($item->foto_barang) }}" class="card-img-top" alt="{{ $item->nama_barang }}">
-                                    <span class="badge bg-danger" style="position: absolute; top: 10px; left: 10px; transition: all 0.3s ease-in-out;">Diskon</span>
-                                    <div class="card-body">
-                                        <h5 class="card-title" style="text-transform: uppercase;">{{ $item->nama_barang }}</h5>
-                                        <p class="card-text text-muted">{{ $item->jenisBarang->nama_jenis_barang }}</p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <p class="card-text">
-                                                <span style="color: red; text-decoration: line-through;">Rp.{{ $item->harga_sebelum_diskon_barang }}</span>
-                                                <p class="card-text" style="font-weight: bold;">Rp.{{ $item->harga_setelah_diskon_barang }}</p>
-                                            </p>
+            @if ($items && $items->count() > 0)
+                @foreach($items->chunk(4) as $chunkIndex => $chunk)
+                    <div class="carousel-item {{ $chunkIndex == 0 ? 'active' : '' }}">
+                        <div class="row">
+                            @foreach($chunk as $item)
+                                <div class="col-md-3 col-12"> {{-- Change col-md-3 to col-12 --}}
+                                    <div class="card" style="position: relative; height: 380px;">
+                                        <img src="{{ 'data:image/jpeg;base64,' . base64_encode($item->foto_barang) }}" class="card-img-top" alt="{{ $item->nama_barang }}">
+                                        <span class="badge bg-danger" style="position: absolute; top: 10px; left: 10px; transition: all 0.3s ease-in-out;">Diskon</span>
+                                        <div class="card-body">
+                                            <h5 class="card-title" style="text-transform: uppercase;">{{ $item->nama_barang }}</h5>
+                                            <p class="card-text text-muted">{{ $item->jenisBarang->nama_jenis_barang }}</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <p class="card-text">
+                                                    <span style="color: red; text-decoration: line-through;">Rp.{{ $item->harga_sebelum_diskon_barang }}</span>
+                                                    <p class="card-text" style="font-weight: bold;">Rp.{{ $item->harga_setelah_diskon_barang }}</p>
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>                   
-                            </div>
-                        @endforeach
+                                    </div>                   
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
+                @endforeach
+            @else
+                <div class="d-flex justify-content-center align-items-center" style="height: 160px;">
+                    <p class="text-center">Tidak ada barang diskon</p>
                 </div>
-            @endforeach
+            @endif
+            
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>

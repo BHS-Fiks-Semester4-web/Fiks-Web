@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Mobile\Transaksi;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->enum('role',['admin', 'karyawan'])->default('karyawan');
             $table->enum('status', ['aktif', 'tidak'])->default('aktif');
             $table->binary('foto')->nullable();
+            $table->string('otp')->nullable();
             $table->timestamps();
         });
     }

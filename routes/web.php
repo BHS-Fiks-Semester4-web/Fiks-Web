@@ -10,8 +10,10 @@ use App\Http\Controllers\DataJenisBarangController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\PengeluaranController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\risetpw;
+use App\Models\Pengeluaran;
 use App\Models\Service;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\SearchController;
@@ -68,8 +70,6 @@ Route::resource('dashboard', DashboardController::class)->middleware('auth');
 Route::resource('data_barang', DataBarangController::class)->middleware('auth');
 Route::controller(DataBarangController::class)->group(function () {
     Route::get('/data_barang_truncate', 'truncate')->middleware('auth');
-    Route::post('/data_barang/storePemasok', 'storePemasok')->name('storePemasok');
-    Route::post('/data_barang/storeJenisBarang', 'storeJenisBarang')->name('storeJenisBarang');
 });
 
 Route::resource('data_pengguna', DataPenggunaController::class)->middleware('auth');
@@ -93,3 +93,7 @@ Route::controller(ServiceController::class)->group(function () {
     Route::get('/data_service_truncate', 'truncate')->middleware('auth');
 });
 
+Route::resource('data_pengeluaran', PengeluaranController::class)->middleware('auth');
+Route::controller(PengeluaranController::class)->group(function () {
+    Route::get('/data_pengeluaran_truncate', 'truncate')->middleware('auth');
+});

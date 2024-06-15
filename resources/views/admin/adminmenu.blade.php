@@ -30,6 +30,7 @@
                     <a href="/data_pemasok" class="nav-item nav-link {{ Request::is('data_pemasok*') ? 'active' : '' }}"><i class="fa fa-truck-field me-2"></i>Data Pemasok</a>
                     <a href="/data_jenis_barang" class="nav-item nav-link {{ Request::is('data_jenis_barang*') ? 'active' : '' }}"><i class="fa fa-clipboard-list me-2"></i>Jenis Barang</a>
                     <a href="/data_service" class="nav-item nav-link {{ Request::is('data_service*') ? 'active' : '' }}"><i class="fa fa-wrench me-2"></i>Layanan</a>
+                    <a href="/data_pengeluaran" class="nav-item nav-link {{ Request::is('data_pengeluaran*') ? 'active' : '' }}"><i class="fa fa-dollar-sign me-2"></i>Pengeluaran</a>
                 </div>
             </nav>
         </div>

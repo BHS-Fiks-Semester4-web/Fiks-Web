@@ -9,6 +9,8 @@ class Barang extends Model
 {
     use HasFactory;
 
+    public $timestamps = true;
+
     protected $table = 'barang';
     
     protected $fillable = [
@@ -34,6 +36,11 @@ class Barang extends Model
     public function supplier()
     {
         return $this->belongsTo(Pemasok::class, 'id_supplier');
+    }
+
+    public function detailTransaksi()
+    {
+        return $this->hasMany(DetailTransaksi::class, 'id_barang');
     }
 
     public static function getBarang($search = null)

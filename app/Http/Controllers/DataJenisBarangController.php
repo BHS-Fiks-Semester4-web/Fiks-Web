@@ -39,6 +39,7 @@ class DataJenisBarangController extends Controller
             'nama_jenis_barang' => 'required|max:255',
             'deskripsi_jenis_barang' => 'required|string',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'created_at' => now()
         ]);
 
         $foto = $request->file('foto');
@@ -101,14 +102,15 @@ class DataJenisBarangController extends Controller
         ]);
     
         $jenisBarang = JenisBarang::findOrFail($id);
-        $jenisBarang->update($validated);
         
         if ($request->hasFile('foto')) {
             $foto = $request->file('foto');
             $fotoBlob = file_get_contents($foto->getRealPath());
             $jenisBarang->foto = $fotoBlob;
-        }
-    
+            }
+            
+        $jenisBarang->update($validated);
+        
         return redirect('/data_jenis_barang')->with('update', 'Data diperbarui');
     }
     

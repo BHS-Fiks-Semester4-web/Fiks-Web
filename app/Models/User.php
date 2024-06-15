@@ -31,7 +31,8 @@ class User extends Authenticatable
         'agama',
         'tanggal_lahir',
         'role',
-        'foto'
+        'foto',
+        'otp'
         
     ];
 
@@ -70,7 +71,12 @@ class User extends Authenticatable
         return $query->get();
     }
 
-    public $timestamps = false;
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class, 'id_karyawan');
+    }
+
+    public $timestamps = true;
 
 
     /**
@@ -80,9 +86,11 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
+        'otp',
         'remember_token',
     ];
 
+    
     /**
      * The attributes that should be cast.
      *

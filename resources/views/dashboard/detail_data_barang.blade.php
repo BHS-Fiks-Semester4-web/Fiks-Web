@@ -24,18 +24,22 @@
     </div>
 
     <div class="row">
-        @foreach($data_barangs as $barang)
-        <div class="col-md-3 mb-4">
-            <div class="card">
-                <img src="{{ 'data:image/jpeg;base64,' . base64_encode($barang->foto_barang) }}" class="card-img-top" alt="{{ $barang->nama_barang }}">
-                <div class="card-body">
-                    <h5 class="card-title">{{ $barang->nama_barang }}</h5>
-                    <p class="card-text">{{ $barang->jenisBarang->nama_jenis_barang }}</p>
-                    <p class="card-text"><strong>Rp. {{ $barang->harga_setelah_diskon_barang }}</strong></p>
+        @if ($data_barangs && $data_barangs->count() > 0)
+            @foreach($data_barangs as $barang)
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <img src="{{ 'data:image/jpeg;base64,' . base64_encode($barang->foto_barang) }}" class="card-img-top" alt="{{ $barang->nama_barang }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $barang->nama_barang }}</h5>
+                        <p class="card-text">{{ $barang->jenisBarang->nama_jenis_barang }}</p>
+                        <p class="card-text"><strong>Rp. {{ $barang->harga_setelah_diskon_barang }}</strong></p>
+                    </div>
                 </div>
             </div>
-        </div>
-        @endforeach
+            @endforeach
+        @else
+            <p class="text-center">Tidak ada data barang</p>
+        @endif
     </div>
 </div>
 @endsection

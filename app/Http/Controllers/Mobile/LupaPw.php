@@ -16,13 +16,10 @@ class LupaPw extends Controller
             'email' => 'required|email',
         ]);
     
-        // Generate OTP
         $otp = mt_rand(100000, 999999);
     
-        // Save OTP in session
         $request->session()->put('otp', $otp);
     
-        // Send email
         $mail = new PHPMailer(true);
     
         try {

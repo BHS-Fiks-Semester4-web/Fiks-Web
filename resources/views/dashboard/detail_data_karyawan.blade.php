@@ -23,22 +23,26 @@
     </div>
 
     <div class="row">
-        @foreach($data_karyawans as $karyawan)
-        <div class="col-md-3 mb-4">
-            <div class="card">
-                @if ($karyawan->foto)
-                    <img src="{{ 'data:image/jpeg;base64,' . base64_encode($karyawan->foto) }}" class="card-img-top">
-                @else
-                    <img class="card-img-top" src="/admins/img/profile.png">
-                @endif
-                <div class="card-body" style="line-height: 0.5;">
-                    <h5 class="card-title">{{ $karyawan->username }}</h5>
-                    <p class="card-text"><small>{{ $karyawan->name }}</small></p>
-                    <p class="card-text"><small>{{ $karyawan->email }}</small></p>
+        @if ($data_karyawans && $data_karyawans->count() > 0)
+            @foreach($data_karyawans as $karyawan)
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    @if ($karyawan->foto)
+                        <img src="{{ 'data:image/jpeg;base64,' . base64_encode($karyawan->foto) }}" class="card-img-top">
+                    @else
+                        <img class="card-img-top" src="/admins/img/profile.png">
+                    @endif
+                    <div class="card-body" style="line-height: 0.5;">
+                        <h5 class="card-title">{{ $karyawan->username }}</h5>
+                        <p class="card-text"><small>{{ $karyawan->name }}</small></p>
+                        <p class="card-text"><small>{{ $karyawan->email }}</small></p>
+                    </div>
                 </div>
             </div>
-        </div>
-        @endforeach
+            @endforeach 
+        @else
+            <p class="text-center">Tidak ada data karyawan</p>
+        @endif
     </div>
 </div>
 @endsection

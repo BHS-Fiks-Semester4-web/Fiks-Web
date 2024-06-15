@@ -39,6 +39,7 @@ class ServiceController extends Controller
             'nama_service' => 'required|max:255',
             'deskripsi_service' => 'required|string',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'created_at' => now()
         ]);
 
         $foto = $request->file('foto');
