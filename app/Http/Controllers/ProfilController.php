@@ -18,25 +18,47 @@ class ProfilController extends Controller
     }
 
     public function edit()
-    {
+    {   
+        
         $user = Auth::user();
-        return view('profile.edit', compact('user'));
+        $title = 'Edit Profile';
+        return view('profile.editprofile', compact('user','title'));
     }
 
     public function update(Request $request)
-    {
-        $user = Auth::user();
+{
+    $user = Auth::user();
 
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
-        ]);
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+        'no_hp' => 'nullable|string|max:15',
+        'alamat' => 'nullable|string|max:255',
+        'agama' => 'nullable|string|max:100',
+        'role' => 'nullable|string|max:50',
+        'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
 
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-        ]);
+    // Handle profile picture upload
+    if ($request->hasFile('profile_picture')) {
+        $image = $request->file('profile_picture');
+        $imageName = time() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('images/profile'), $imageName);
 
-        return redirect()->route('profile.show')->with('success', 'Profile updated successfully.');
+        // Save the new image path
+        $user->foto = 'images/profile/' . $imageName;
     }
+
+    $user->update([
+        'name' => $request->name,
+        'email' => $request->email,
+        'no_hp' => $request->no_hp,
+        'alamat' => $request->alamat,
+        'agama' => $request->agama,
+        
+    ]);
+
+    return redirect()->route('profile.show')->with('success', 'Profile updated successfully.');
+}
+
 }

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\risetpw;
 use App\Models\Service;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,8 +28,19 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 */
 
 
+Route::get('/landing', [LandingInfoController::class, 'discount'])->name('discount');
+Route::get('/product-detail/{id}', [LandingInfoController::class, 'getDetail']);
 
 Route::get('/', [LandingInfoController::class, 'index'])->name('home');
+Route::get('/home', [LandingInfoController::class, 'discount'])->name('home');
+Route::get('/product', [LandingInfoController::class, 'index'])->name('product');
+Route::get('/contact', [LandingInfoController::class, 'discount'])->name('contact');
+Route::get('/allproduct', [LandingInfoController::class, 'barang'])->name('allproduct');
+
+
+Route::get('/search', [SearchController::class, 'index'])->name('search.index');
+
+
 
 Route::controller(LandingController::class)->group(function () {
     Route::get('/admin', 'signin')->name('admin');
@@ -46,7 +58,7 @@ Route::get('/reset-password/{token}', [risetpw::class,'showResetForm'])->name('p
 Route::post('/reset-password', [risetpw::class, 'reset'])->name('password.update');
 Route::get('/profile', [ProfilController::class, 'show'])->name('profile.show');
 Route::get('/profile/edit', [ProfilController::class, 'edit'])->name('profile.edit');
-Route::post('/profile/edit', [ProfilController::class, 'update'])->name('profile.update');
+Route::put('/profile/edit', [ProfilController::class, 'update'])->name('profile.update');
 
 Route::get('/dashboard/indexDataBarang', [DashboardController::class, 'indexDataBarang'])->name('dashboard.indexDataBarang')->middleware('auth');
 Route::get('/dashboard/indexDataAdmin', [DashboardController::class, 'indexDataAdmin'])->name('dashboard.indexDataAdmin')->middleware('auth');

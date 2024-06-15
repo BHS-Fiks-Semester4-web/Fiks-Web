@@ -1,194 +1,69 @@
-<!-- <!DOCTYPE html>
+<!-- @extends('main')
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discount Page</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <style>
-        body {
-            font-family: Arial, sans-serif;
+    <title>Barang Diskon</title>
+     Bootstrap CSS -->
+    
+    <!-- <style>
+        .container-fluid {
+            max-width: 900px; /* Atur ukuran maksimal container */
+            margin: auto; /* Tengah halaman */
+            padding: 0 15px; /* Tambahkan padding agar tidak terlalu rapat */
         }
-        .slider-container {
-            position: relative;
-            max-width: 100%;
-            margin: auto;
-            overflow: hidden;
+        .card-title {
+            font-size: 1rem; /* Atur ukuran font judul */
         }
-        .slides {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-        .slide {
-            min-width: 100%;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .slide img {
-            width: 100%;
-            height: auto;
-        }
-        .arrow {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            width: 30px;
-            height: 30px;
-            margin-top: -15px;
-            border-radius: 50%;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            text-align: center;
-            line-height: 30px;
-            font-size: 18px;
-            z-index: 10;
-        }
-        .prev {
-            left: 10px;
-        }
-        .next {
-            right: 10px;
-        }
-        .dots-container {
-            text-align: center;
-            padding: 10px;
-        }
-        .dot {
-            cursor: pointer;
-            height: 15px;
-            width: 15px;
-            margin: 0 2px;
-            background-color: #bbb;
-            border-radius: 50%;
-            display: inline-block;
-            transition: background-color 0.6s ease;
-        }
-        .active, .dot:hover {
-            background-color: #717171;
-        }
-        .product-card {
-            width: 300px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin: 10px;
-            text-align: center;
-        }
-        .product-card img {
-            max-width: 100%;
-            height: auto;
-        }
-        .discount-label {
-            background-color: red;
-            color: white;
-            padding: 5px;
-            position: absolute;
-            top: 10px;
-            left: 10px;
-        }
-        .product-price {
-            color: #000;
-            font-weight: bold;
-        }
-        .old-price {
-            color: #888;
-            text-decoration: line-through;
-        }
-        .btn-detail {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: black;
-            color: white;
-            text-decoration: none;
-            margin-top: 10px;
+        .card-text {
+            font-size: 0.875rem; /* Atur ukuran font teks */
         }
     </style>
 </head>
-<body>
-
-<div class="slider-container">
-    <div class="slides">
-        <div class="slide">
-            <div class="product-card">
-                <div class="discount-label">Discount</div>
-                <img src="{{ asset('image/foto1.png') }}" alt="Product 1">
-                <h3>LAPTOP SECOND DELL LATITUDE 5420</h3>
-                <p>LAPTOP SECOND</p>
-                <p class="product-price">RP. 5.800.000 <span class="old-price">RP. 6.100.000</span></p>
-                <a href="#" class="btn-detail">LIHAT DETAIL ➔</a>
+<body> -->
+<div class="discount" id="Discount">
+        <h5 class="m-0 pb-2">Barang Diskon</h5>
+        <div id="carouselExample" class="carousel slide mt-2" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @foreach($items->chunk(4) as $chunkIndex => $chunk)
+                    <div class="carousel-item {{ $chunkIndex == 0 ? 'active' : '' }}">
+                        <div class="row">
+                            @foreach($chunk as $item)
+                                <div class="col-md-3 col-12">
+                                    <div class="card h-100" style="position: relative;">
+                                        <img src="{{ 'data:image/jpeg;base64,' . base64_encode($item->foto_barang) }}" class="card-img-top h-100 w-100" alt="{{ $item->nama_barang }}">
+                                        <span class="badge bg-danger" style="position: absolute; top: 10px; left: 10px; transition: all 0.3s ease-in-out;">Diskon</span>
+                                        <div class="card-body">
+                                            <h5 class="card-title" style="text-transform: uppercase;">{{ $item->nama_barang }}</h5>
+                                            <p class="card-text text-muted">{{ $item->jenisBarang->nama_jenis_barang }}</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <p class="card-text">
+                                                    <span style="color: red; text-decoration: line-through;">Rp.{{ $item->harga_sebelum_diskon_barang }}</span>
+                                                    <span class="card-text" style="font-weight: bold;">Rp.{{ $item->harga_setelah_diskon_barang }}</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>                   
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endforeach
             </div>
-        </div>
-        <div class="slide">
-            <div class="product-card">
-                <div class="discount-label">Discount</div>
-                <img src="{{ asset('image/foto4.png') }}" alt="Product 2">
-                <h3>LAPTOP SECOND LENOVO A485</h3>
-                <p>LAPTOP SECOND</p>
-                <p class="product-price">RP. 4.250.000 <span class="old-price">RP. 4.800.000</span></p>
-                <a href="#" class="btn-detail">LIHAT DETAIL ➔</a>
-            </div>
-        </div>
-        <div class="slide">
-            <div class="product-card">
-                <div class="discount-label">Discount</div>
-                <img src="{{ asset('image/service.png') }}" alt="Product 3">
-                <h3>PROJECTOR EPSON EB-E500</h3>
-                <p>PROJECTOR</p>
-                <p class="product-price">RP. 5.700.000 <span class="old-price">RP. 5.950.000</span></p>
-                <a href="#" class="btn-detail">LIHAT DETAIL ➔</a>
-            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
     </div>
-    <div class="arrow prev" onclick="changeSlide(-1)">&#10094;</div>
-    <div class="arrow next" onclick="changeSlide(1)">&#10095;</div>
-</div>
-<div class="dots-container">
-    <span class="dot" onclick="currentSlide(1)"></span>
-    <span class="dot" onclick="currentSlide(2)"></span>
-    <span class="dot" onclick="currentSlide(3)"></span>
-</div>
 
-<script>
-    let slideIndex = 0;
-    const slides = document.querySelector('.slides');
-    const dots = document.querySelectorAll('.dot');
-    const totalSlides = dots.length;
-
-    function showSlides(n) {
-        slideIndex += n;
-        if (slideIndex >= totalSlides) {
-            slideIndex = 0;
-        } else if (slideIndex < 0) {
-            slideIndex = totalSlides - 1;
-        }
-        updateSlides();
-    }
-
-    function currentSlide(n) {
-        slideIndex = n - 1;
-        updateSlides();
-    }
-
-    function updateSlides() {
-        const offset = slideIndex * -100;
-        slides.style.transform = 'translateX(' + offset + '%)';
-        dots.forEach(dot => dot.classList.remove('active'));
-        dots[slideIndex].classList.add('active');
-    }
-
-    document.querySelector('.prev').addEventListener('click', () => showSlides(-1));
-    document.querySelector('.next').addEventListener('click', () => showSlides(1));
-
-    // Initialize
-    updateSlides();
-</script>
-<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-<script>
-    AOS.init();
-</script>
-
-</body>
+    <!-- Bootstrap Bundle with Popper -->
+    
+<!-- </body>
 </html> -->

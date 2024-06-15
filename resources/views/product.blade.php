@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -23,73 +23,8 @@
 
 @include('navbar')
 <style>
-    main {
-    text-align: center;
-    padding: 50px 20px;
-}
 
-.intro h1 {
-    margin-bottom: 30px;
-}
-
-.products {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.product-card {
-    background-color: #8F003C;
-    color: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 200px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s;
-    cursor: pointer;
-}
-
-.product-card:hover {
-    transform: scale(1.05);
-}
-
-.product-card .icon {
-    font-size: 50px;
-    margin-bottom: 10px;
-}
-
-.popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-}
-
-.popup-content {
-    text-align: left;
-}
-
-.popup-content img {
-    max-width: 50px;
-    height: auto;
-    margin-bottom: 20px;
-}
-
-.close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    cursor: pointer;
-}
-</style>
+</style> -->
 <div class="content" id="product">
 <main>
     <section class="intro">
@@ -114,8 +49,8 @@
     </section>
 </main>
 </div>
-
-<div style="height: 1000px;"></div>
+<!-- 
+<div style="height: 1000px;"></div> -->
 <div id="popup" class="popup">
     <div class="popup-content">
         <span class="close" onclick="hidePopup()">&times;</span>
@@ -123,51 +58,29 @@
         <h2 id="popup-title"></h2>
         <p id="popup-description"></p>
         <p id="popup-price"></p>
+        @foreach($itemss->chunk(4) as $chunkIndex => $chunk)
+                    <div class="carousel-item {{ $chunkIndex == 0 ? 'active' : '' }}">
+                        <div class="row">
+                            @foreach($chunk as $item)
+                                <div class="col-md-3 col-12">
+                                    <div class="card h-100" style="position: relative;">
+                                        <img src="{{ 'data:image/jpeg;base64,' . base64_encode($item->foto_barang) }}" class="card-img-top" alt="{{ $item->nama_barang }}">
+                                        <span class="badge bg-danger" style="position: absolute; top: 10px; left: 10px; transition: all 0.3s ease-in-out;">Diskon</span>
+                                        <div class="card-body">
+                                            <h5 class="card-title" style="text-transform: uppercase;">{{ $item->nama_barang }}</h5>
+                                            <p class="card-text text-muted">{{ $item->jenisBarang->nama_jenis_barang }}</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <p class="card-text">
+                                                    <span style="color: red; text-decoration: line-through;">Rp.{{ $item->harga_sebelum_diskon_barang }}</span>
+                                                    <span class="card-text" style="font-weight: bold;">Rp.{{ $item->harga_setelah_diskon_barang }}</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>                   
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endforeach
     </div>
 </div>
-
-<script>
-    // Menambahkan class 'loaded' pada elemen body setelah halaman dimuat
-    window.addEventListener('load', function() {
-        document.body.classList.add('loaded');
-    });
-
-    function showPopup(productName) {
-        var title, description, price, imageUrl;
-
-        // Mendapatkan informasi produk berdasarkan nama produk
-        if (productName === 'laptop') {
-            title = 'Laptop';
-            description = 'Deskripsi produk Laptop. Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
-            price = '$500.00';
-            imageUrl = 'image/foto1.png'; // Ganti dengan URL gambar yang sesuai
-        } else if (productName === 'aksesori') {
-            title = 'Aksesori';
-            description = 'Deskripsi produk Aksesori. Menjual berbagai aksesoris dan komponen seperti keyboard, mouse, dan lain-lain.';
-            price = '$50.00';
-            imageUrl = 'path/to/aksesori-image.jpg'; // Ganti dengan URL gambar yang sesuai
-        } else if (productName === 'service') {
-            title = 'Jasa Service';
-            description = 'Deskripsi produk Jasa Service. Menyediakan Jasa Service Laptop dan Komputer dengan cepat dan terpercaya.';
-            price = '$30.00';
-            imageUrl = 'path/to/service-image.jpg'; // Ganti dengan URL gambar yang sesuai
-        }
-
-        // Menampilkan popup dengan informasi produk
-        document.getElementById('popup-title').innerHTML = title;
-        document.getElementById('popup-description').innerHTML = description;
-        document.getElementById('popup-price').innerHTML = price;
-        document.getElementById('popup-image').src = imageUrl;
-        document.getElementById('popup').style.display = 'block';
-    }
-
-    function hidePopup() {
-        document.getElementById('popup').style.display = 'none';
-    }
-</script>
-<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-<script>
-    AOS.init();
-</script>
-</body>
-</html>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
-
+use App\Models\Barang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PHPMailer\PHPMailer\PHPMailer;
@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Password;
 
 class LandingController extends Controller
 {
+ 
 
     public function signin()
     {
