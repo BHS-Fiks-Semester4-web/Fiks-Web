@@ -4,61 +4,66 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Mobile\Transaksi;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use App\Models\Mobile\DetailTransaksi;
-use App\Models\Barang;
+use Illuminate\Support\Facades\DB;
 use App\Models\Pengeluaran;
+use Illuminate\Support\Facades\Log;
 
 
 class TransaksiController extends Controller
 {
    
-
+    
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'id_karyawan' => 'required',
+        $validator = Validator::make($request->all(), [
+            'id_karyawan' => 'required|integer',
             'total_harga' => 'required|numeric',
             'bayar' => 'required|numeric',
             'kembalian' => 'required|numeric',
-            'detail_transaksi.*.id_barang' => 'required|integer',
-            'detail_transaksi.*.qty' => 'required|integer',
-            'detail_transaksi.*.sub_total' => 'required|numeric',
+            // Asumsikan detail_transaksi sekarang hanya membutuhkan id_barang, qty, dan sub_total tanpa array
+            'id_barang' => 'required|integer',
+            'qty' => 'required|integer',
+            'sub_total' => 'required|numeric',
         ]);
     
-        $transaksi = Transaksi::create([
-            'id_karyawan' => $validatedData['id_karyawan'],
-            'total_harga' => $validatedData['total_harga'],
-            'bayar' => $validatedData['bayar'],
-            'kembalian' => $validatedData['kembalian'],
-        ]);
-    
-        if (isset($request->detail_transaksi) && is_array($request->detail_transaksi)) {
-            foreach ($request->detail_transaksi as $detail) {
-                DetailTransaksi::create([
-                    'id_transaksi' => $transaksi->id, 
-                    'id_barang' => $detail['id_barang'],
-                    'qty' => $detail['qty'],
-                    'sub_total' => $detail['sub_total'],
-                ]);
-                $barang = Barang::find($detail['id_barang']);
-                if ($barang) {
-                    $barang->stok_barang -= $detail['qty']; 
-                    $barang->save(); 
-                    
-                } else {
-                    dd('Barang not found');
-                }
-            }
-            
-        } else {
-            print_r('detail_transaksi is not provided or not an array');
-
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
         }
     
-        return response()->json(['message' => 'Transaction created successfully']);
-    }
+        // Proses penyimpanan transaksi
+        $transaksi = new Transaksi([
+            'id_karyawan' => $request->id_karyawan,
+            'total_harga' => $request->total_harga,
+            'bayar' => $request->bayar,
+            'kembalian' => $request->kembalian,
+        ]);
+        
+        if ($transaksi->save()) {
+            // Transaksi saved successfully, proceed with DetailTransaksi
+            $detailTransaksi = new DetailTransaksi([
+                'id_transaksi' => $transaksi->id,
+                'id_barang' => $request->id_barang,
+                'qty' => $request->qty,
+                'sub_total' => $request->sub_total,
+            ]);
+        
+            $detailTransaksi->save();
 
+            // Update stok_barang in barang table
+            // Correcting the property name from 'stok' to 'stok_barang'
+            $barang = DB::table('barang')->where('id', $request->id_barang)->first();
+            $stok = $barang->stok_barang - $request->qty; // Adjusted property name here
+            DB::table('barang')->where('id', $request->id_barang)->update(['stok_barang' => $stok]);
+
+            return response()->json(['message' => 'Transaksi berhasil dibuat'], 200);
+        } else {
+            // Handle the error, Transaksi save failed
+            return response()->json(['error' => 'Failed to save Transaksi'], 500);
+        }
+    }
 
 
         public function show($month)

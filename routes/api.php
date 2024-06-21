@@ -47,7 +47,6 @@ Route::get('barang/{id_jenis_barang}', [DataBarang::class, 'getBarangByIdJenis']
 //route transaksi mobile
 Route::apiResource('transaksi', TransaksiController::class);
 
-
 Route::get('/kategori', [KategoriController::class, 'index']);
 Route::post('/kategori', [KategoriController::class, 'store']);
 Route::get('/kategori/{id}', [KategoriController::class, 'show']);

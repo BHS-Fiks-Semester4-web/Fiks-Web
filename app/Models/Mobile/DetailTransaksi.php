@@ -8,6 +8,8 @@ use App\Models\Mobile\Transaksi;
 
 class DetailTransaksi extends Model
 {
+    public $timestamps = false;
+
     use HasFactory;
 
     protected $table = 'detail_transaksi'; // Optional if following Laravel's naming conventions
