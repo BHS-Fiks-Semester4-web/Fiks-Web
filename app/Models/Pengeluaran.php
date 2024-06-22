@@ -19,6 +19,11 @@ class Pengeluaran extends Model
         'total_pengeluaran',
     ];
 
+    public function barang()
+    {
+        return $this->belongsTo(Barang::class, 'id_barang');
+    }
+
     public static function getPengeluaran($search = null)
     {
         $query = Pengeluaran::where('status', 'aktif')->latest();

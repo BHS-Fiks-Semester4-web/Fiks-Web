@@ -15,74 +15,104 @@ use Illuminate\Support\Facades\Log;
 class TransaksiController extends Controller
 {
    
-    
-    public function store(Request $request)
+public function index()
     {
-        $validator = Validator::make($request->all(), [
-            'id_karyawan' => 'required|integer',
-            'total_harga' => 'required|numeric',
-            'bayar' => 'required|numeric',
-            'kembalian' => 'required|numeric',
-            // Asumsikan detail_transaksi sekarang hanya membutuhkan id_barang, qty, dan sub_total tanpa array
-            'id_barang' => 'required|integer',
-            'qty' => 'required|integer',
-            'sub_total' => 'required|numeric',
-        ]);
-    
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
-        }
-    
-        // Proses penyimpanan transaksi
-        $transaksi = new Transaksi([
-            'id_karyawan' => $request->id_karyawan,
-            'total_harga' => $request->total_harga,
-            'bayar' => $request->bayar,
-            'kembalian' => $request->kembalian,
-        ]);
-        
-        if ($transaksi->save()) {
-            // Transaksi saved successfully, proceed with DetailTransaksi
-            $detailTransaksi = new DetailTransaksi([
-                'id_transaksi' => $transaksi->id,
-                'id_barang' => $request->id_barang,
-                'qty' => $request->qty,
-                'sub_total' => $request->sub_total,
-            ]);
-        
-            $detailTransaksi->save();
-
-            // Update stok_barang in barang table
-            // Correcting the property name from 'stok' to 'stok_barang'
-            $barang = DB::table('barang')->where('id', $request->id_barang)->first();
-            $stok = $barang->stok_barang - $request->qty; // Adjusted property name here
-            DB::table('barang')->where('id', $request->id_barang)->update(['stok_barang' => $stok]);
-
-            return response()->json(['message' => 'Transaksi berhasil dibuat'], 200);
-        } else {
-            // Handle the error, Transaksi save failed
-            return response()->json(['error' => 'Failed to save Transaksi'], 500);
-        }
+        $transaksi = Transaksi::all();
+        return response()->json($transaksi);
     }
 
+    public function store(Request $request)
+{
+    // Validate the incoming request
+    $validated = $request->validate([
+        'id_karyawan' => 'required|integer',
+        'total_harga' => 'required|numeric',
+        'bayar' => 'required|numeric',
+        'kembalian' => 'required|numeric',
+        'detail_transaksi' => 'required|array',
+        'detail_transaksi.*.id_barang' => 'required|integer',
+        'detail_transaksi.*.qty' => 'required|integer',
+        'detail_transaksi.*.sub_total' => 'required|numeric',
+    ]);
+
+    // Begin database transaction
+    DB::beginTransaction();
+    try {
+        // Create the transaction
+        $transaksi = new Transaksi([
+            'id_karyawan' => $validated['id_karyawan'],
+            'total_harga' => $validated['total_harga'],
+            'bayar' => $validated['bayar'],
+            'kembalian' => $validated['kembalian'],
+        ]);
+        $transaksi->save();
+
+        foreach ($validated['detail_transaksi'] as $detail) {
+            $transaksiDetail = new DetailTransaksi([
+                'id_transaksi' => $transaksi->id, // Ensure this matches the field name in your database
+                'id_barang' => $detail['id_barang'],
+                'qty' => $detail['qty'],
+                'sub_total' => $detail['sub_total'],
+            ]);
+            $transaksiDetail->save();
+        }
+
+        // Commit the transaction
+        DB::commit();
+
+        // Return a successful response
+        return response()->json(['message' => 'Transaction created successfully', 'transaksi' => $transaksi], 201);
+    } catch (\Exception $e) {
+        // Rollback the transaction in case of error
+        DB::rollback();
+        return response()->json(['message' => 'Failed to create transaction', 'error' => $e->getMessage()], 500);
+    }
+}
 
         public function show($month)
         {
             // Check if $month format is correct (1-12)
             if ($month >= 1 && $month <= 12) {
                 // Fetch transactions for the given month with their detail transactions
-                $transaksi = Transaksi::with('detailTransaksi')
+                $transaksi = Transaksi::with(['detailTransaksi.barang' => function($query) {
+                    $query->select('id', 'nama_barang'); // Assuming 'id' is the foreign key in detailTransaksi
+                }])                  
                     ->whereMonth('created_at', $month)
                     ->orderBy('created_at', 'desc')
                     ->get();
 
+
+                    $transaksi->transform(function ($transaksi) {
+                        $transaksi->detailTransaksi->transform(function ($detail) {
+                            if (isset($detail->barang)) {
+                                $detail->nama_barang = $detail->barang->nama_barang;
+                                unset($detail->barang); // Remove the barang object
+                            }
+                            return $detail;
+                        });
+                        return $transaksi;
+                    });
                 // Fetch expenses for the given month
-                $pengeluaran = Pengeluaran::whereMonth('created_at', $month)
+                $pengeluaran = Pengeluaran::with(['barang' => function($query) {
+                    $query->select('id', 'nama_barang'); // Assuming 'id' is the foreign key in pengeluaran
+                }])                
+                ->whereMonth('created_at', $month)
                     ->orderBy('created_at', 'desc')
                     ->get();
 
                 // Optionally, you can format the response here if needed
+                $pengeluaran->transform(function ($pengeluaran) {
+                    if (isset($pengeluaran->barang)) {
+                        $pengeluaran->nama_barang = $pengeluaran->barang->nama_barang;
+                        unset($pengeluaran->barang); // Remove the barang object
+                    }
+                    return $pengeluaran;
+                });
 
+
+
+
+                
                 return response()->json([
                     'transaksi' => $transaksi,
                     'pengeluaran' => $pengeluaran
