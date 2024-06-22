@@ -10,14 +10,11 @@ class KategoriController extends Controller
 {
     public function index()
     {
-        $kategoris = Kategori::all()->toArray();
+        $kategoris = Kategori::all();
 
-        // Konversi data ke UTF-8 jika diperlukan
-        array_walk_recursive($kategoris, function (&$item) {
-            if (is_string($item)) {
-                $item = utf8_encode($item);
-            }
-        });
+        foreach($kategoris as $kategori){
+            $kategori->foto = base64_encode($kategori->foto);
+        }
 
         $response = [
             'status' => 'success',

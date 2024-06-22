@@ -116,6 +116,7 @@ class AuthController extends Controller
                 'agama' => 'required',
                 'name' => 'required',
                 'no_hp' => 'required',
+                'foto' => 'required',
             ]);
 
             // Cari pengguna berdasarkan ID
@@ -130,6 +131,7 @@ class AuthController extends Controller
                 'agama' => $request->agama,
                 'tanggal_lahir' => $request->tanggal_lahir,
                 'no_hp' => $request->no_hp,
+                'foto' => $request->foto,
             ]);
 
             // Beri respons dengan sukses
@@ -146,25 +148,41 @@ class AuthController extends Controller
             ], 500);
         }
     }
+
+    public function uploadProfileImage(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        if ($request->has('foto')) {
+            $user->foto = $request->input('foto');
+            $user->save();
+
+            return response()->json(['message' => 'Profile image uploaded successfully'], 200);
+        }
+
+        return response()->json(['message' => 'No image uploaded'], 400);
+    }
+
+
     public function lupa(Request $request)
     {
         $email = $request->input('email');
         $request->validate([
             'email' => 'required|email',
         ]);
-    
+
         // Generate OTP
         $otp = mt_rand(100000, 999999);
-    
+
         //save database otp
         $user = User::where('email', $request->email)->first();
         $user->update([
             'otp' => $otp
         ]);
-        
+
         // Send email
         $mail = new PHPMailer(true);
-    
+
         try {
             $mail->isSMTP();
             $mail->Host = env('MAIL_HOST');
@@ -173,21 +191,21 @@ class AuthController extends Controller
             $mail->Password = env('MAIL_PASSWORD');
             $mail->SMTPSecure = env('MAIL_ENCRYPTION');
             $mail->Port = env('MAIL_PORT');
-    
+
             $mail->setFrom(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
             $mail->addAddress($request->email);
-    
+
             $mail->isHTML(true);
             $mail->Subject = 'Reset Password OTP';
             $mail->Body = 'Your OTP is: ' . $otp;
-    
+
             $mail->send();
             return response()->json([
                 'success' => true,
                 'message' => 'OTP Sudah Terkirim Ke Email Anda.'
             ]);
-            
-            
+
+
         } catch (Exception $e) {
             return redirect()->back()->with('error', 'Email could not be sent. Please try again later.');
         }
