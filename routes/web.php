@@ -32,16 +32,17 @@ use App\Http\Controllers\SearchController;
 
 Route::get('/landing', [LandingInfoController::class, 'discount'])->name('discount');
 Route::get('/product-detail/{id}', [LandingInfoController::class, 'getDetail']);
-
+Route::get('/product-detaildisc/{id}', [LandingInfoController::class, 'getDetailDisc']);
 Route::get('/', [LandingInfoController::class, 'index'])->name('home');
 Route::get('/home', [LandingInfoController::class, 'discount'])->name('home');
 Route::get('/product', [LandingInfoController::class, 'index'])->name('product');
 Route::get('/contact', [LandingInfoController::class, 'discount'])->name('contact');
 Route::get('/allproduct', [LandingInfoController::class, 'barang'])->name('allproduct');
-
+Route::get('/service', [LandingInfoController::class, 'index'])->name('service');
+Route::get('/products/{id_jenis_barang}', [LandingInfoController::class, 'getKategori']);
 
 Route::get('/search', [SearchController::class, 'index'])->name('search.index');
-
+Route::get('/coba', [LandingInfoController::class, 'coba'])->name('coba');
 
 
 Route::controller(LandingController::class)->group(function () {

@@ -211,8 +211,11 @@ section {
 }
 #product {
     background-color: #ecd3d3;
+    width: 100%;
 }
-
+#service{
+    width: 100%;
+}
 .products {
     display: flex;
     justify-content: center;
@@ -298,7 +301,166 @@ section {
     justify-content: flex-start;
     align-items: center;
 }
+
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+
+.popup-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+
+.popup-content {
+    background-color: #f7e5e5;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 1200px;
+    border-radius: 10px;
+    text-align: center;
+    height: 60%;
+    
+    
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.product-element {
+    display: flex;
+    flex-direction: column;
+    width: auto; /* Sesuaikan sesuai kebutuhan */
+    margin-right: 10px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    text-align: center;
+    height: 275px;
+    
+}
+
+.product-element:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.product-element img {
+    width: auto;
+    height: 150px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+ .product-element p, .product-element h4 {
+    margin: 5px 0;
+ /* Add this */
+    max-width: 200px;
+
+    /* Truncate text with ellipsis */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.product-element h3{
+    margin: 5px 0;
+    /* Add this */
+       max-width: 200px;
+   
+       /* Truncate text with ellipsis */
+       overflow: hidden;
+       white-space: nowrap;
+       text-overflow: normal;
+}
+
+
+.product-element .detail-button {
+    background-color: #f8d7da;
+    color: #000;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.product-element .detail-button:hover {
+    background-color: #f1c4c7;
+}
+
+#popup-description {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: 96%;
+    max-height: 100%; /* set ketinggian maksimum untuk product-element */
+    overflow-y: auto;
+    white-space: nowrap;
+}
+
 #Discount {
+    margin-top: 20px;
     width: 100%;
     padding: 10px;
    
@@ -306,11 +468,12 @@ section {
 }
 
 #Discount h5 {
-    font-size: 24px;
+    font-size: 44px;
     margin-bottom: 20px;
 }
 
 .containerr {
+    margin-top: 60px;
     display: flex;
     overflow: hidden;
     position: relative;
@@ -333,9 +496,17 @@ section {
     display: flex;
     background-color: #fcf6f8;
 }
+.card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
 
 
 .card {
+    position: relative;
+    overflow: hidden; 
+    width: calc(100% / 5 - 20px);
+    display: inline-block;
     border: 1px solid #ddd;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(240, 172, 172, 0.1);
@@ -343,6 +514,23 @@ section {
     text-align: center;
     padding: 5px;
     background-color: #f5efef;
+}
+.discount-label {
+    position: absolute;
+    top: 10px; /* Adjust to position the label closer to the top */
+    left: 10px; /* Adjust to position the label closer to the left */
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    animation: slideIn 1s ease-in-out infinite;
+}
+@keyframes slideIn {
+    0% { transform: translateY(-100%); opacity: 0; }
+    50% { transform: translateY(10px); opacity: 1; }
+    100% { transform: translateY(-100%); opacity: 0; }
 }
 
 .card-img {
@@ -375,7 +563,7 @@ section {
     border: none;
     color: #fff;
     font-size: 18px;
-    padding: 10px;
+    padding: 30px;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -399,7 +587,7 @@ section {
 }
 
 .carousel-control-prev-icon::before{
-    content: '‹'; /* Custom icon content for previous and next buttons */
+    content: '<'; /* Custom icon content for previous and next buttons */
     font-size: 24px;
 }
 .carousel-control-next-icon::before {
@@ -407,44 +595,120 @@ section {
     font-size: 24px;
 }
 
-.modal{
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
-    filter: blur(5px);
-    background-color: rgba(255, 0, 43, 0.342);
-   
-
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7); /* Warna latar belakang semi-transparan */
 }
 
+/* Konten modal */
 .modal-content {
-    z-index: 100002;
-    background-color: #ff0000;
-    margin: auto;
+    background-color: #fefefe;
+    margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
-    height: 80%;
-    max-height: 500px;
-    max-width: 500px;
-    position: relative;
-    display: flex;
-    /* flex-direction: row; */
-    align-items: center;
+    border-radius: 10px;
+    max-width: 80%; /* Lebar maksimum konten modal */
+    overflow: auto; /* Mengaktifkan gulir jika konten melebihi ukuran modal */
+    width: 400px; /* Lebar tetap untuk modal */
+    height: 400px;
+    max-width: 90%; /* Lebar maksimum, jika layar lebih kecil */
+    max-height: 80%; /* Tinggi maksimum untuk konten, agar dapat digulir jika perlu */
+    overflow-y: auto;
+    align-items : center;
+    
 }
 
+/* Gaya untuk elemen dalam modal */
+.modal-content p,
 .modal-content img {
-    width: 100%;
+    max-width: 100%; /* Lebar maksimum untuk paragraf dan gambar */
     height: auto;
 }
+/* Teks penutup modal */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.closee {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
 
-.modal-content input {
-    flex-direction: column;
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-  
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.closee:hover,
+.closee:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Style untuk bagian atas modal */
+.atas {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.atas p {
+    font-size: 24px;
+}
+
+/* Style untuk gambar produk */
+#modalImg {
+    max-width: 100%; /* Lebar maksimum gambar */
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+/* Style untuk bagian tengah modal */
+.tengah {
     text-align: center;
+}
+
+/* Style untuk harga produk */
+#modalHarga {
+    font-weight: bold;
+    font-size: 14px;
+    align-items : center;
+    text-decoration: line-through;
+    color: red;
+    
+}
+#modalHargaa {
+    font-weight: bold;
+    font-size: 19px;
+    align-items : center;
+    
+}
+
+/* Animasi untuk tampilan modal */
+.modal-content {
+    animation: zoom 0.6s;
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
 }

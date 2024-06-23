@@ -270,6 +270,7 @@
                 <ul>
                     <li><a href="{{ route('home') }}">Home</a></li>
                     <li><a href="{{ route('allproduct') }}">Produk</a></li>
+                    <li><a href="{{ route('service') }}">Jasa</a></li>
                     <li><a href="{{ route('contact') }}">Kontak</a></li>
                 </ul>
             </div>

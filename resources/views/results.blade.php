@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    
     <title>Hasil Pencarian</title>
     <style>
-         body {
+        body {
             margin: 0;
             padding: 0;
             scroll-behavior: smooth;
@@ -99,7 +98,8 @@
         }
 
         section {
-            height: 100vh;
+            min-height: 100vh;
+            padding: 20px;
         }
 
         .containerr {
@@ -137,6 +137,7 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
+
         .detail {
             background-color: #ecd3d3;
             border: 4px solid #ddd;
@@ -145,109 +146,106 @@
             text-decoration: none;
         }
 
-     /* Style untuk modal */
-/* Style untuk modal */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.7); /* Warna latar belakang semi-transparan */
-}
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
 
-/* Konten modal */
-.modal-content {
-    background-color: #fefefe;
-    margin: 10% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    border-radius: 10px;
-    max-width: 80%; /* Lebar maksimum konten modal */
-    overflow: auto; /* Mengaktifkan gulir jika konten melebihi ukuran modal */
-    width: 400px; /* Lebar tetap untuk modal */
-    height: 400px;
-    max-width: 90%; /* Lebar maksimum, jika layar lebih kecil */
-    max-height: 80%; /* Tinggi maksimum untuk konten, agar dapat digulir jika perlu */
-    overflow-y: auto;
-    align-items : center;
-    
-}
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            border-radius: 10px;
+            max-width: 80%;
+            overflow: auto;
+            width: 400px;
+            height: 400px;
+            max-width: 90%;
+            max-height: 80%;
+            overflow-y: auto;
+            align-items: center;
+        }
 
-/* Gaya untuk elemen dalam modal */
-.modal-content p,
-.modal-content img {
-    max-width: 100%; /* Lebar maksimum untuk paragraf dan gambar */
-    height: auto;
-}
-/* Teks penutup modal */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
+        .modal-content p,
+        .modal-content img {
+            max-width: 100%;
+            height: auto;
+        }
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
 
-/* Style untuk bagian atas modal */
-.atas {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-.atas p {
-    font-size: 24px;
-}
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
 
-/* Style untuk gambar produk */
-#modalImg {
-    max-width: 100%; /* Lebar maksimum gambar */
-    height: auto;
-    margin-bottom: 20px;
-    border-radius: 5px;
-}
+        .atas {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
 
-/* Style untuk bagian tengah modal */
-.tengah {
-    text-align: center;
-}
+        .atas p {
+            font-size: 24px;
+        }
 
-/* Style untuk harga produk */
-#modalHarga {
-    font-weight: bold;
-    font-size: 18px;
-    align-items : center;
-    
-}
+        #modalImg {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
 
-/* Animasi untuk tampilan modal */
-.modal-content {
-    animation: zoom 0.6s;
-}
+        .tengah {
+            text-align: center;
+        }
 
-@keyframes zoom {
-    from {
-        transform: scale(0);
-    }
-    to {
-        transform: scale(1);
-    }
-}
+        #modalHarga {
+            font-weight: bold;
+            font-size: 18px;
+            align-items: center;
+        }
+
+        .modal-content {
+            animation: zoom 0.6s;
+        }
+
+        @keyframes zoom {
+            from {
+                transform: scale(0);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .no-results {
+            text-align: center;
+            font-size: 20px;
+            color: #333;
+        }
     </style>
 </head>
 
-<body>  
-<header>
+<body>
+    <header>
         <div class="container">
             <div class="logo">
                 <a href="#home"><img src="/image/logo1x2.png" alt="Logo Akhwat Computer Jember"></a>
@@ -256,6 +254,7 @@
                 <ul>
                     <li><a href="{{ route('home') }}">Home</a></li>
                     <li><a href="{{ route('allproduct') }}">Produk</a></li>
+                    <li><a href="{{ route('service') }}">Jasa</a></li>
                     <li><a href="{{ route('contact') }}">Kontak</a></li>
                 </ul>
             </div>
@@ -271,87 +270,84 @@
             </div>
         </div>
     </header>
-<section id="results">
-      <h1>Hasil Pencarian</h1>
-    @if($results->isEmpty())
-        <p>No results found for "{{ request('query') }}"</p>
-    @else
+
+    <section id="results">
+        <h1>Hasil Pencarian</h1>
+        @if($results->isEmpty())
+        <p class="no-results">Data Dengan Nama "{{ request('query') }}" Tidak Di Temukan</p>
+        @else
         <div class="containerr">
             @foreach($results as $result)
-                <div class="card" data-id="{{ $result->id }}">
-                    <img src="{{ 'data:image/jpeg;base64,' . base64_encode($result->foto_barang) }}" alt="{{ $result->nama_barang }}">
-                    <input type="text" value="Nama Barang: {{ $result->nama_barang }}" readonly>
-                    <input type="text" value="Stok Barang: {{ $result->stok_barang }}" readonly>
-                    <input type="text" value="Harga:Rp {{ number_format($result->harga_sebelum_diskon_barang, 0, ',', '.') }}" readonly>
-                    <a class="detail" href="#">Lihat Detail</a>
-                </div>
+            <div class="card" data-id="{{ $result->id }}">
+                <img src="{{ 'data:image/jpeg;base64,' . base64_encode($result->foto_barang) }}" alt="{{ $result->nama_barang }}">
+                <input type="text" value="Nama Barang: {{ $result->nama_barang }}" readonly>
+                <input type="text" value="Stok Barang: {{ $result->stok_barang }}" readonly>
+                <input type="text" value="Harga:Rp {{ number_format($result->harga_sebelum_diskon_barang, 0, ',', '.') }}" readonly>
+                <a class="detail" href="#">Lihat Detail</a>
+            </div>
             @endforeach
         </div>
-    @endif
-</section>
-<div id="productDetailModal" class="modal">
+        @endif
+    </section>
+
+    <div id="productDetailModal" class="modal">
         <div class="modal-content">
             <div class="atas">
                 <p id="modalNamaBarang"></p>
                 <span class="close">&times;</span>
             </div>
             <div class="tengah">
-                  <img id="modalImg" src="data:image/jpeg;base64," alt="Gambar Produk" />
-                    
-                  <p id="modalDeskripsi"></p>
+                <img id="modalImg" src="data:image/jpeg;base64," alt="Gambar Produk" />
+                <p id="modalDeskripsi"></p>
             </div>
             <div class="harga">
                 <p id="modalHarga"></p>
             </div>
-            
         </div>
     </div>
-    
+
     <script>
-        // document.addEventListener('DOMContentLoaded', (event) => {
-            const modal = document.getElementById("productDetailModal");
-            const modalImg = document.getElementById("modalImg");
-            const modalNamaBarang = document.getElementById("modalNamaBarang");
-            const modalDeskripsi = document.getElementById("modalDeskripsi");
-            const modalHarga = document.getElementById("modalHarga");
-            const closeModal = document.getElementsByClassName("close")[0];
-            function formatRupiah(number) {
-             return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(number);
-                }
+        const modal = document.getElementById("productDetailModal");
+        const modalImg = document.getElementById("modalImg");
+        const modalNamaBarang = document.getElementById("modalNamaBarang");
+        const modalDeskripsi = document.getElementById("modalDeskripsi");
+        const modalHarga = document.getElementById("modalHarga");
+        const closeModal = document.getElementsByClassName("close")[0];
 
-            document.querySelectorAll('.detail').forEach(button => {
-                button.addEventListener('click', function (event) {
-                    event.preventDefault();
-                    const card = this.closest('.card');
-                    const productId = card.getAttribute('data-id');
+        function formatRupiah(number) {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(number);
+        }
 
-                    fetch(`/product-detail/${productId}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            // <img src="{{ 'data:image/jpeg;base64,' . base64_encode($result->foto_barang) }}" alt="{{ $result->nama_barang }}">
-                            modalImg.src = "data:image/jpeg;base64," + data.foto_barang; // data.foto_barang berisi string base64 dari gambar
+        document.querySelectorAll('.detail').forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                const card = this.closest('.card');
+                const productId = card.getAttribute('data-id');
 
-                            modalNamaBarang.innerHTML = `${data.nama_barang}`;
-                            modalDeskripsi.innerHTML = `<h1>Spesifikasi:</h1></b> <br> ${data.deskripsi_barang}`;
-                            modalHarga.innerHTML = `Harga:  ${formatRupiah(data.harga_sebelum_diskon_barang)}`;
-                            modal.style.display = "flex";
-                        })
-                        .catch(error => {
-                            console.error('Error fetching product details:', error);
-                        });
-                });
+                fetch(`/product-detail/${productId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        modalImg.src = "data:image/jpeg;base64," + data.foto_barang;
+                        modalNamaBarang.innerHTML = `${data.nama_barang}`;
+                        modalDeskripsi.innerHTML = `<h1>Spesifikasi:</h1></b> <br> ${data.deskripsi_barang}`;
+                        modalHarga.innerHTML = `Harga:  ${formatRupiah(data.harga_sebelum_diskon_barang)}`;
+                        modal.style.display = "flex";
+                    })
+                    .catch(error => {
+                        console.error('Error fetching product details:', error);
+                    });
             });
+        });
 
-            closeModal.onclick = function () {
+        closeModal.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == modal) {
                 modal.style.display = "none";
             }
-
-            window.onclick = function (event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            }
-        // });
+        }
     </script>
 </body>
 </html>
