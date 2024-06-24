@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\mobile\LayananService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,5 +23,10 @@ class Service extends Model
         }
     
         return $query->paginate(4)->withQueryString();
+    }
+
+    public function layananService()
+    {
+        return $this->hasMany(LayananService::class, 'id_jenis_service');
     }
 }

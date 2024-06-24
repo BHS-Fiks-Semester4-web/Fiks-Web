@@ -10,7 +10,7 @@ use App\Http\Controllers\Mobile\KategoriController;
 use App\Http\Controllers\Mobile\LupaPw;
 use App\Models\Transaksi;
 use App\Http\Controllers\Api\TransaksiController;
-
+use App\Http\Controllers\Mobile\LayananServiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +59,8 @@ Route::delete('/kategori/{id}', [KategoriController::class, 'destroy']);
 
 
 Route::post('/forgot-password', [LupaPw::class, 'sendResetLinkEmail']);
+
+Route::resource('layanan_service', LayananServiceController::class);
 
 
 
