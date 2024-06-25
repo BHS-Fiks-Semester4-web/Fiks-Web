@@ -30,6 +30,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/login-mobile', [AuthController::class, 'loginMobile']);
 Route::post('/register-mobile',[AuthController::class,'registerMobile']);
 Route::put('/users/{id}', [AuthController::class, 'update']);
+Route::get('/users/{id}', [AuthController::class, 'getUserById']);
 Route::post('/users/{id}/upload-profile-image', [AuthController:: class, 'uploadProfileImage']);
 Route::post('/upload-image', 'ImageController@uploadImage');
 Route::middleware('auth:api')->get('/get-user', [AuthController::class, 'getUserByToken']);
@@ -49,6 +50,12 @@ Route::get('barang/{id_jenis_barang}', [DataBarang::class, 'getBarangByIdJenis']
 Route::resource('transaksi', TransaksiController::class)->only([
     'index', 'store', 'show'
 ]);
+Route::get('penghasilan-bersih/{month}', [TransaksiController::class, 'getPenghasilanBersihPerBulan']);
+Route::get('penghasilan/harian/{year}/{month}/{day}', 'App\Http\Controllers\Api\TransaksiController@getPenghasilanHarian');
+Route::get('/penghasilan/{type}/{year}/{month}/{day?}', 'App\Http\Controllers\Api\TransaksiController@getPenghasilan');
+
+Route::get('/penghasilan-dan-pengeluaran/{month}', [TransaksiController::class, 'getPenghasilanDanPengeluaran']);
+
 
 Route::get('/kategori', [KategoriController::class, 'index']);
 Route::post('/kategori', [KategoriController::class, 'store']);

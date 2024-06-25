@@ -42,7 +42,7 @@ class AuthController extends Controller
                         'agama' => $user->agama,
                         'tanggal_lahir' => $user->tanggal_lahir,
                         'no_hp' => $user->no_hp,
-                        // 'token' => $token,
+                        'foto' => $user->foto,
                     ],
                     'message' => 'Login berhasil'
                 ], 200);
@@ -237,6 +237,31 @@ public function resetPassword(Request $request)
 
     return response()->json(['message' => 'Password reset successful'], 200);
 }
+public function getUserById($id)
+{
+    try {
+        // Cari pengguna berdasarkan ID
+        $user = User::findOrFail($id);
+
+        // Encode foto ke base64 jika ada
+        if ($user->foto) {
+            $user->foto = base64_encode($user->foto); // Pastikan foto sudah dalam bentuk base64 sebelum disimpan
+        }
+
+        // Beri respons dengan data pengguna
+        return response()->json([
+            'status' => 'success',
+            'user' => $user,
+        ], 200);
+    } catch (\Exception $e) {
+        // Tangani kesalahan jika pengguna tidak ditemukan atau ada kesalahan lainnya
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Terjadi kesalahan saat mengambil data pengguna: ' . $e->getMessage(),
+        ], 500);
+    }
+}
+
 
 
     // Fungsi untuk mendapatkan data pengguna berdasarkan token
