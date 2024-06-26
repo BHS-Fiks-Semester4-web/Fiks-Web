@@ -12,15 +12,18 @@
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
                         @if (Auth::user()->foto)
-                            <img class="rounded-circle" src="data:image/jpeg;base64,{{ base64_encode(Auth::user()->foto) }}" alt="" style="width: 40px; height: 40px;">
+                            <!-- Ensure that the 'foto' field contains correct base64-encoded image data -->
+                            <img class="rounded-circle" src="data:image/jpeg;base64,{{ base64_encode(Auth::user()->foto) }}" alt="User Photo" style="width: 40px; height: 40px;">
                         @else
-                            <img class="rounded-circle" src="/admins/img/profile.png" style="width: 40px; height: 40px;">
+                            <img class="rounded-circle" src="/admins/img/profile.png" style="width: 40px; height: 40px;" alt="Default Profile Photo">
                         @endif
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <a href="profile"><h6 class="mb-0">{{ Auth::user()->username }}</h6>
-                        <span>{{ Auth::user()->role }}</span></a>
+                        <a href="profile">
+                            <h6 class="mb-0">{{ Auth::user()->username }}</h6>
+                            <span>{{ Auth::user()->role }}</span>
+                        </a>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">

@@ -119,33 +119,38 @@ class DataBarangController extends Controller
             'deskripsi_barang'              => 'required|string',
             'foto_barang'                   => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-
+    
         $data_barang = Barang::findOrFail($id);
-        $data_barang->update($request->all());
-
+        
+        // Updating fields except for the foto_barang field
+        $data_barang->update($request->except('foto_barang'));
+    
+        // If a new photo is uploaded, update the foto_barang field
         if ($request->hasFile('foto_barang')) {
             $foto = $request->file('foto_barang');
             $fotoBlob = file_get_contents($foto->getRealPath());
             $data_barang->foto_barang = $fotoBlob;
+            $data_barang->save(); // Make sure to save after updating the foto_barang field
         }
-
+    
+        // Update status and related calculations
         $stok_awal = $data_barang->stok_barang;
         if ($stok_awal == 0) {
             $data_barang->status = 'tidak';
             $data_barang->save();
         }
-
+    
         $qty_detail_transaksi = DetailTransaksi::where('id_barang', $id)->sum('qty');
         $total_pengeluaran = ($qty_detail_transaksi + $stok_awal) * $data_barang->harga_beli_barang;
-
+    
         Pengeluaran::where('id_barang', $id)->update([
             'nama_pengeluaran' => $data_barang->nama_barang,    
             'total_pengeluaran' => $total_pengeluaran,
         ]);
-
+    
         return redirect('data_barang/'.$id)->with('update', 'Data barang berhasil diupdate.');
     }
-
+    
     /**
      * Remove the specified resource from storage.
      */

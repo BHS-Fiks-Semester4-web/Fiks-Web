@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Barang;
 use App\Models\User;
 use App\Models\Pemasok;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -14,6 +15,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        
         $items = Barang::where('diskon_barang', '>', 0)->get();
         $jenisBarang = Barang::where('status', 'aktif');
         $jumlahBarang = Barang::where('status', 'aktif')->sum('stok_barang'); // Menghitung jumlah total stok barang

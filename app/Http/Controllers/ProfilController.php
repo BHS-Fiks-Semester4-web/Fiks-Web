@@ -55,6 +55,7 @@ class ProfilController extends Controller
         'no_hp' => $request->no_hp,
         'alamat' => $request->alamat,
         'agama' => $request->agama,
+        'foto' =>$user->foto,
         
     ]);
 

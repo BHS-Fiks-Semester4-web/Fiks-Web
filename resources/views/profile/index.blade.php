@@ -87,7 +87,11 @@
             </div>
             <div class="profile-container">
                 <div class="profile-details bg-light rounded-top p-4">
-                <img src="data:image/jpeg;base64,{{ base64_encode($user->foto) }}" alt="Profile Picture" class="profile-picture">
+                @if($user->foto)
+                        <img src="{{ asset($user->foto) }}" alt="Profile Picture" class="profile-picture">
+                    @else
+                        <img src="{{ asset('images/default-profile.png') }}" alt="Default Profile Picture" class="profile-picture">
+                    @endif
                     <p><strong>Name     :</strong> {{ $user->name }}</p>
                     <p><strong>Email    :</strong> {{ $user->email }}</p>
                     <p><strong>No HP    :</strong> {{ $user->no_hp }}</p>

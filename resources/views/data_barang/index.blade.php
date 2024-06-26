@@ -64,11 +64,12 @@
                                     @endif
                                     @if ($item->foto_barang)
                                         <td>
-                                            <img class="bd-placeholder-img" src="data:image/jpeg;base64,{{ base64_encode($item->foto_barang) }}" width="40" height="40">
+                                        <img  class="bd-placeholder-img" src="data:image/jpeg;base64,{{ base64_encode($item->foto_barang) }}" alt="Profile Picture" class="profile-picture"width="40" height="40">
                                         </td>
                                     @else
-                                        <td>Tidak ada</td>
+                                    <img  class="bd-placeholder-img" src="{{ asset('images/default-profile.png') }}" alt="Default Profile Picture" class="profile-picture"width="40" height="40">
                                     @endif
+                                  
                                     <td>
                                         <a href="/data_barang/{{ $item->id }}" type="button" style="margin-right: 10px; color: #454444;"><i class="fas fa-info-circle me-2"></i></a>
                                         <a href="/data_barang/{{ $item->id }}/edit" type="button" style="margin-right: 10px; color: #454444;"><i class="fas fa-pencil-alt me-2"></i></a>
