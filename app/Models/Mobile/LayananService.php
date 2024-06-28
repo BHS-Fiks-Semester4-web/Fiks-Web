@@ -16,6 +16,7 @@ class LayananService extends Model
         'nama_customer',
         'no_hp_customer',
         'alamat_customer',
+        'nama_service',
         'id_jenis_service',
         'status_service',
         'total_bayar_service',
@@ -25,17 +26,6 @@ class LayananService extends Model
         'tanggal_penerimaan',
         'tanggal_selesai'
     ];
-
-    // public static function getLayananServicePending($search = null)
-    // {
-    //     $query = LayananService::where('status', 'aktif')->latest();
-
-    //     if ($search) {
-    //         $query->where('nama_barang', 'LIKE', "%$search%");
-    //     }
-
-    //     return $query->paginate(4)->withQueryString();
-    // }
 
     public function service()
     {

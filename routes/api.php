@@ -67,8 +67,13 @@ Route::delete('/kategori/{id}', [KategoriController::class, 'destroy']);
 
 Route::post('/forgot-password', [LupaPw::class, 'sendResetLinkEmail']);
 
+Route::controller(LayananServiceController::class)->group(function () {
+    Route::get('/layanan_service/pending', 'pending');
+    Route::get('/layanan_service/in_progress', 'in_progress');
+    Route::get('/layanan_service/done_unpaid', 'done_unpaid');
+    Route::get('/layanan_service/done_paid', 'done_paid');
+});
 Route::resource('layanan_service', LayananServiceController::class);
-
 
 
 

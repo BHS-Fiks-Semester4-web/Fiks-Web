@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama_customer');
             $table->string('no_hp_customer');
             $table->string('alamat_customer');
+            $table->string('nama_service');
             $table->unsignedBigInteger('id_jenis_service')->nullable();
             $table->enum('status_service', ['pending', 'in_progress', 'completed'])->default('pending');
             $table->integer('total_bayar_service')->nullable();

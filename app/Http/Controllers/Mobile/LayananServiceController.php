@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Mobile\Kategori;
 use App\Models\mobile\LayananService;
+use App\Models\Service;
 
 class LayananServiceController extends Controller
 {
@@ -14,37 +15,87 @@ class LayananServiceController extends Controller
      */
     public function index(Request $request)
     {
+        
+    }
+
+    public function pending()
+    {
         try {
-            $layananServicePending = LayananService::where('status_service', 'pending')->take(4)->get();
-            $layananServiceInProgress = LayananService::where('status_service', 'in_progress')->take(4)->get();
-            $layananServiceDoneUnpaid = LayananService::where('status_service', 'done')->where('status_bayar', 'belum')->take(4)->get();
-            $layananServiceDonePaid = LayananService::where('status_service', 'done')->where('status_bayar', 'sudah')->take(4)->get();
-
-            $response = [
+            $layananServicePending = LayananService::where('status_service', 'pending')->take(3)->get();
+    
+            return response()->json([
                 'status' => 'success',
-                'message' => 'Data kategori berhasil dimuat',
+                'message' => 'Data layanan pending berhasil dimuat',
                 'pendings' => $layananServicePending,
-                'in_progress' => $layananServiceInProgress,
-                'done_unpaids' => $layananServiceDoneUnpaid,
-                'done_paids' => $layananServiceDonePaid
-            ];
-
-            return response()->json($response, 200);
+            ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Terjadi kesalahan saat memuat data kategori: ' . $e->getMessage(),
+                'message' => 'Terjadi kesalahan saat memuat data layanan pending: ' . $e->getMessage(),
             ], 500);
         }
     }
 
+    public function in_progress()
+    {
+        try {
+            $layananServiceInProgress = LayananService::where('status_service', 'in_progress')->take(3)->get();
+    
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data layanan in progress berhasil dimuat',
+                'in_progress' => $layananServiceInProgress,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Terjadi kesalahan saat memuat data layanan in progress: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function done_unpaid()
+    {
+        try {
+            $layananServiceDoneUnpaid = LayananService::where('status_service', 'completed')->where('status_bayar', 'belum')->take(3)->get();
+    
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data layanan done unpaid berhasil dimuat',
+                'done_unpaids' => $layananServiceDoneUnpaid,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Terjadi kesalahan saat memuat data layanan done unpaid: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function done_paid()
+    {
+        try {
+            $layananServiceDonePaid = LayananService::where('status_service', 'completed')->where('status_bayar', 'sudah')->take(3)->get();
+    
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data layanan done paid berhasil dimuat',
+                'done_paids' => $layananServiceDonePaid,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Terjadi kesalahan saat memuat data layanan done paid: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        $kategoris = Kategori::all();
+        $kategoris = Service::all();
 
         foreach($kategoris as $kategori){
             $kategori->foto = base64_encode($kategori->foto);
@@ -68,6 +119,7 @@ class LayananServiceController extends Controller
             'nama_customer' => 'required',
             'no_hp_customer' => 'required',
             'alamat_customer' => 'required',
+            'nama_service' => 'required',
             'id_jenis_service' => 'nullable',
             'status_service' => 'required',
             'total_bayar_service' => 'nullable',
