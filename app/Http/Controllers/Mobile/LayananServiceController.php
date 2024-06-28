@@ -90,6 +90,78 @@ class LayananServiceController extends Controller
         }
     }
 
+    public function pending_all()
+    {
+        try {
+            $layananServicePending = LayananService::where('status_service', 'pending')->get();
+    
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data layanan pending berhasil dimuat',
+                'pendings' => $layananServicePending,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Terjadi kesalahan saat memuat data layanan pending: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function in_progress_all()
+    {
+        try {
+            $layananServiceInProgress = LayananService::where('status_service', 'in_progress')->get();
+    
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data layanan in progress berhasil dimuat',
+                'in_progress' => $layananServiceInProgress,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Terjadi kesalahan saat memuat data layanan in progress: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function done_unpaid_all()
+    {
+        try {
+            $layananServiceDoneUnpaid = LayananService::where('status_service', 'completed')->where('status_bayar', 'belum')->get();
+    
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data layanan done unpaid berhasil dimuat',
+                'done_unpaids' => $layananServiceDoneUnpaid,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Terjadi kesalahan saat memuat data layanan done unpaid: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function done_paid_all()
+    {
+        try {
+            $layananServiceDonePaid = LayananService::where('status_service', 'completed')->where('status_bayar', 'sudah')->get();
+    
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data layanan done paid berhasil dimuat',
+                'done_paids' => $layananServiceDonePaid,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Terjadi kesalahan saat memuat data layanan done paid: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      */

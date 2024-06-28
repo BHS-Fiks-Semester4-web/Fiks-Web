@@ -72,6 +72,10 @@ Route::controller(LayananServiceController::class)->group(function () {
     Route::get('/layanan_service/in_progress', 'in_progress');
     Route::get('/layanan_service/done_unpaid', 'done_unpaid');
     Route::get('/layanan_service/done_paid', 'done_paid');
+    Route::get('/layanan_service/pending_all', 'pending_all');
+    Route::get('/layanan_service/in_progress_all', 'in_progress_all');
+    Route::get('/layanan_service/done_unpaid_all', 'done_unpaid_all');
+    Route::get('/layanan_service/done_paid_all', 'done_paid_all');
 });
 Route::resource('layanan_service', LayananServiceController::class);
 
